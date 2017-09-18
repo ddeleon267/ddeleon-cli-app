@@ -16,6 +16,7 @@ class WhatsOnTap::CLI
     2. Grey Lodge Pub - 2.7 miles away
     3. Gat Beer - 2.7 miles away
     DOC
+    @locations = WhatsOnTap::Location.all
   end
 
   def list_beers
