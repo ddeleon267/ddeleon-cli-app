@@ -6,6 +6,7 @@ class WhatsOnTap::CLI
     puts "What's on Tap?"
     list_locations
     list_beers
+    goodbye
   end
 
   def list_locations
@@ -18,16 +19,23 @@ class WhatsOnTap::CLI
   end
 
   def list_beers
-    puts "Enter the number of the location for which you'd like to see the beer menu."
-    input = gets.strip
-    case input
-    when "1"
-      puts "#1 beer list"
-    when "2"
-      puts "#2 beer list"
-    when "3"
-      puts "#3 beer list"
+    puts "Enter the number of the location for which you'd like to see the beer menu, or type 'exit'."
+    input = nil
+    while input != "exit"
+      input = gets.strip.downcase
+      case input
+      when "1"
+        puts "#1 beer list"
+      when "2"
+        puts "#2 beer list"
+      when "3"
+        puts "#3 beer list"
+      end
     end
+  end
+
+  def goodbye
+    puts "Until next time!"
   end
 
 end
