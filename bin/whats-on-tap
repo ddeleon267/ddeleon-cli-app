@@ -1,3 +1,0 @@
-#!/usr/bin/env ruby
-
-WhatsOnTap::CLI.new.call

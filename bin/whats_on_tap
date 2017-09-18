@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require "./lib/whats_on_tap"
+
+require "./lib/whats_on_tap/cli.rb"
+
+WhatsOnTap::CLI.new.call

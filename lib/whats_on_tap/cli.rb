@@ -1,3 +1,5 @@
+#This is the CLI controller
+
 class WhatsOnTap::CLI
 
   def call
