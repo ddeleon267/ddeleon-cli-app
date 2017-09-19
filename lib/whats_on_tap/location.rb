@@ -15,8 +15,18 @@ class WhatsOnTap::Location
     location_1 = self.new
     location_1.name = "Hope Angel Brauhaus"
     location_1.address = "7980 Oxford Ave"
-    location_1.distance = "2.0 miles"
-    location_1.beer_list = ["Alpine Willy Wheat Ale", "Benediktiner Oktoberfest", "Bitburger Pilsner", "Blake's Black Philip Hard Cider", "Evil Genius Trick or Treat"]
+    location_1.distance = "1.0 miles"
+    location_1.beer_list = ["Alpine Willy Wheat Ale", "Benediktiner Oktoberfest", "Bitburger Pilsner", "Blake's Black Philip Hard Cider",
+      "Evil Genius Trick or Treat"]
+
+      location_2 = self.new
+      location_2.name = "Grey Lodge Pub"
+      location_2.address = "6235 Frankford Ave"
+      location_2.distance = "2.7 miles"
+      location_2.beer_list = ["Allagash Black", "Alpine Truck Trail", "Anderson Valley Cerveza Crema Nitro", "Black Hog Strawberry Gose",
+        "Green Flash Spanish Trampoline"]
+
+
   end
 
   def initialize
