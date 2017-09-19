@@ -17,6 +17,9 @@ class WhatsOnTap::CLI
     # 3. Gat Beer - 2.7 miles away
     # DOC
     @locations = WhatsOnTap::Location.all
+    @locations.each.with_index(1) do |location, i|
+      puts "#{i}. #{location.name} - #{location.distance} away"
+    end
   end
 
   def list_beers
