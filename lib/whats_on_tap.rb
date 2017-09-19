@@ -7,6 +7,9 @@ require_relative "./whats_on_tap/version"
 #maybe
 #require_relative "whats_on_tap/version"
 
+require_relative "./whats_on_tap/location"
+
+
 require_relative './whats_on_tap/cli'
 #maybe
 #require_relative 'whats_on_tap/cli'
@@ -14,3 +17,7 @@ require_relative './whats_on_tap/cli'
 module WhatsOnTap
   # Your code goes here...
 end
+
+
+#maybe what you could do instead.. keep this file and the module in it, but add config folder and environment.rb file. Require that file i this one,
+#a la "require_relative '../config/environment'"
