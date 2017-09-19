@@ -29,7 +29,8 @@ class WhatsOnTap::CLI
       input = gets.strip.downcase
 
       if input.to_i > 0
-        puts @locations[input.to_i - 1]
+        the_location = @locations[input.to_i - 1]
+        puts "#{the_location.name} - #{the_location.distance} away"
       elsif input == "list"
         list_locations
       else
