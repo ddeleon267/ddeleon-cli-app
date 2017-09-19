@@ -24,18 +24,26 @@ class WhatsOnTap::CLI
     while input != "exit"
       puts "Enter the number of the location for which you'd like to see the beer menu, or type 'list' to see the list of locations again, or type 'exit'."
       input = gets.strip.downcase
-      case input
-      when "1"
-        puts "#1 beer list"
-      when "2"
-        puts "#2 beer list"
-      when "3"
-        puts "#3 beer list"
-      when "list"
+
+      if input.to_i > 0
+        puts @locations[input.to_i - 1]
+      elsif input == "list"
         list_locations
-      # else
-      #   "Type 'list' or 'exit.'"
+      else
+        puts "Not sure what you want, type list or exit."
       end
+      # case input
+      # when "1"
+      #   puts "#1 beer list"
+      # when "2"
+      #   puts "#2 beer list"
+      # when "3"
+      #   puts "#3 beer list"
+      # when "list"
+      #   list_locations
+      # # else
+      # #   "Type 'list' or 'exit.'"
+      # end
     end
   end
 

@@ -7,11 +7,6 @@ class WhatsOnTap::Location
 
   def self.all
     #I should return a bunch of instances of locations
-    puts <<-DOC
-    1. Hop Angel Brauhaus - 1.0 miles away
-    2. Grey Lodge Pub - 2.7 miles away
-    3. Daly's Irish Pub - 2.9 miles away
-    DOC
     location_1 = self.new
     location_1.name = "Hope Angel Brauhaus"
     location_1.address = "7980 Oxford Ave"
@@ -33,13 +28,14 @@ class WhatsOnTap::Location
     location_3.beer_list = ["Shock Top Lemon Shandy", "Conshohocken Blood Money", "Downeast Cider Survivor Bob", "Magic Hat Elder Betty",
       "Yards Brawler"]
 
+    [location_1, location_2, location_3]
 
 
   end
 
   def initialize
 
-    @@locations << self
+  #
   end
 
 end
