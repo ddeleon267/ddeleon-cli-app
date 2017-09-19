@@ -1,3 +1,5 @@
+#might not need to require anything here?
+
 class WhatsOnTap::Location
   @@locations = []
 

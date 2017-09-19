@@ -17,3 +17,6 @@ Defined execution point (cli.rb file), stubbed out basic environment, set up cal
 
   How to describe each beer?
     Each beer has a name, each beer has notes/flavors, maybe a type, and alcohol percentage, a price
+
+9/19
+should probably change name to whats_on_tap_gem or whats-on-tap-gem. annoying.

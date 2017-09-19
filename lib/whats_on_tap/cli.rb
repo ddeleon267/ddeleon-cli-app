@@ -1,5 +1,5 @@
 #This is the CLI controller
-
+#might not need to require anything here?
 class WhatsOnTap::CLI
 
   def call

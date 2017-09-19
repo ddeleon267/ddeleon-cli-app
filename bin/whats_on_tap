@@ -1,7 +1,13 @@
 #!/usr/bin/env ruby
 
+
+#I shouldn't have to change the name of this file even if I change the name of the gem/project
+
 require "./lib/whats_on_tap"
+# maybe try
+#require_relative '../lib/whats_on_tap'
 
 require "./lib/whats_on_tap/cli.rb"
+#maybe this isn't even necessary? not sure
 
 WhatsOnTap::CLI.new.call

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+
+#I probably won't have to do or add anything to this file
 set -euo pipefail
 IFS=$'\n\t'
 set -vx
