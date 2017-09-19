@@ -20,3 +20,9 @@ Defined execution point (cli.rb file), stubbed out basic environment, set up cal
 
 9/19
 should probably change name to whats_on_tap_gem or whats-on-tap-gem. annoying.
+
+How to actually make these objects "Real" e.g. by scraping? Would like to start with the zip but I don't know how that would work.
+
+For right now maybe just go through and work on beer class?
+
+Or/also, figure out the scraping for the beers, then the locations, then figure out the whole zipcode piece?

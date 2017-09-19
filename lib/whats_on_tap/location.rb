@@ -7,6 +7,19 @@ class WhatsOnTap::Location
 
   def self.all
     #I should return a bunch of instances of locations
+    self.scrape_locations
+  end
+
+  def self.scrape_locations
+    #person is prompted to give zip code
+    #magic scraping voodo happens
+    #Produce list of scraped locations
+    #Prompt user to give number
+    #Scrape beer list of chosen input using magic voodo
+    #prompt to learn more about specific beer or w.e.
+    #scrape video to give more info about beer or go back and do something else
+
+    #will have to comment most/all fo what's below once I get scraping successfully
     location_1 = self.new
     location_1.name = "Hope Angel Brauhaus"
     location_1.address = "7980 Oxford Ave"
@@ -29,7 +42,6 @@ class WhatsOnTap::Location
       "Yards Brawler"]
 
     [location_1, location_2, location_3]
-
 
   end
 
