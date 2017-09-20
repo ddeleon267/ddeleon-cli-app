@@ -20,7 +20,8 @@ class WhatsOnTap::Location
     #scrape video to give more info about beer or go back and do something else
     # locations = []
     #
-    #
+    #locations << self.scrape_site
+
     # locations
 
 
@@ -51,6 +52,12 @@ class WhatsOnTap::Location
     [location_1, location_2, location_3]
 
   end
+
+  # def self.scrape_site
+  #   doc = Nokogiri::HTML(open("add_url_here "))
+      #binding.pry
+      #Avi talks a bit about his scraping workflow at 53:50 in walkthrough vid
+  # end
 
   def initialize
 
