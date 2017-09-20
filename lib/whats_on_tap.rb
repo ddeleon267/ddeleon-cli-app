@@ -7,16 +7,17 @@ require 'open-uri'
 require 'nokogiri'
 require 'pry'
 
-require_relative "./whats_on_tap/version"
-#maybe
-#require_relative "whats_on_tap/version"
-
-require_relative "./whats_on_tap/location"
-
-
-require_relative './whats_on_tap/cli'
-#maybe
-#require_relative 'whats_on_tap/cli'
+#moved all of this to environment
+# require_relative "./whats_on_tap/version"
+# #maybe
+# #require_relative "whats_on_tap/version"
+#
+# require_relative "./whats_on_tap/location"
+#
+#
+# require_relative './whats_on_tap/cli'
+# #maybe
+# #require_relative 'whats_on_tap/cli'
 
 module WhatsOnTap
   # Your code goes here...

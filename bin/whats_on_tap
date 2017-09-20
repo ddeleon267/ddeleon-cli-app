@@ -4,6 +4,7 @@
 #I shouldn't have to change the name of this file even if I change the name of the gem/project
 
 #should I have "require "bundler/setup" " here?
+require_relative "../config/environment"
 require "./lib/whats_on_tap"
 # maybe try
 #require_relative '../lib/whats_on_tap'
