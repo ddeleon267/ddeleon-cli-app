@@ -2,7 +2,7 @@
 #it looks like maybe this is acting as my environment file? I.E. would normally go in its own folder titled 'config' and the file would be called 'environment.rb'
 #I think avi deleted the module below in his video for that reason
 
-
+require 'nokogiri'
 require_relative "./whats_on_tap/version"
 #maybe
 #require_relative "whats_on_tap/version"
