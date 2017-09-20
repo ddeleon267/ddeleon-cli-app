@@ -26,3 +26,6 @@ How to actually make these objects "Real" e.g. by scraping? Would like to start 
 For right now maybe just go through and work on beer class?
 
 Or/also, figure out the scraping for the beers, then the locations, then figure out the whole zipcode piece?
+
+9/20
+Basically just played with file structure and dependencies today

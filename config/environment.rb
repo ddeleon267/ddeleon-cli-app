@@ -1,3 +1,5 @@
+#My environment! Yeehaw
+require 'bundler'
 
 
 #moved all this here from whats_on_tap.rb

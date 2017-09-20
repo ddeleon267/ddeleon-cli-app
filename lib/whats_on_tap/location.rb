@@ -4,6 +4,7 @@ class WhatsOnTap::Location
   @@locations = []
 
   attr_accessor :name, :address, :distance, :beer_list
+  #maybe :beers instead of :beer_list? thinking in terms of 'has many' relationship
 
   def self.all
     #I should return a bunch of instances of locations
