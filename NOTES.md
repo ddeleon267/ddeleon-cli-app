@@ -35,3 +35,8 @@ Also added some ideas for functionality in cli.rb #explore_beer. Need to work on
 9/21
 Some helpful notes on setting up scraper class in collaboration objects video around 27:--
 Also in antipatterns video ~31
+
+Really struggled with the CLI today. I want the user to be able to exit successfully at any point in the program without getting stuck in a loop or something similar. Was mostly successful, but at some points the user would have to enter exit twice in order to exit successfully.
+
+After the #explore_beer method is called I would really like for the user to get back to the previous list of beers easily to select other beers.
+I think I will come back to that later, though, as I want to get to refactoring my code so that it at least relies on objects (locations, beers) instead of strings.

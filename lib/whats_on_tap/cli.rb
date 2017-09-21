@@ -50,11 +50,11 @@ class WhatsOnTap::CLI
   def explore_beer
     #asks for prompt and responds to it
     puts "Enter the number of a beer you'd like to learn more about, or type 'list' to see the list of locations again, or type 'exit'."
-    input_1 = nil
-    while input_1 != "exit"
-      input_1 = gets.strip.downcase
+    input = nil
+    while input != "exit"
+      input = gets.strip.downcase
     #
-      case input_1
+      case input
       when "1"
         puts "some properties about beer #1"
       when "2"
