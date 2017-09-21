@@ -58,6 +58,17 @@ class WhatsOnTap::CLI
     end
   end
 
+  def explore_beer
+    #asks for prompt and responds to it
+    #input = nil
+    #while input != "exit"
+      #puts "Enter the number of the beer that you're like to learn more about, or type 'list' to see the list of locations again, or type 'exit'
+      #input = gets.strip.downcase
+    #end
+
+
+  end
+
   def goodbye
     puts "Until next time!"
   end
