@@ -6,6 +6,7 @@ class WhatsOnTap::CLI
     puts "What's on Tap?"
     list_locations
     list_beers
+    #explore_beer
     goodbye
   end
 
@@ -74,7 +75,6 @@ class WhatsOnTap::CLI
         #puts "Not sure what you want, type list or exit."
       #end
     #end
-
 
   end
 
