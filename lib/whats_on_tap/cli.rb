@@ -16,6 +16,12 @@ class WhatsOnTap::CLI
     # 2. Grey Lodge Pub - 2.7 miles away
     # 3. Gat Beer - 2.7 miles away
     # DOC
+    puts "Please enter your zip code to find the closest places offering craft brews on tap."
+    #perhaps offer other options, like exiting or going back and trying with a differnt zipcode
+    #gets inputs and do something with it
+    #display list of beer places based on what is given
+
+    #This is temporary, so code is workable for not. lists the stump locations before user is prompted to do anything
     @locations = WhatsOnTap::Location.all
     @locations.each.with_index(1) do |location, i|
       puts "#{i}. #{location.name} - #{location.distance} away"
@@ -23,6 +29,7 @@ class WhatsOnTap::CLI
   end
 
   def list_beers
+    #asks for prompt and responds to it
     input = nil
     while input != "exit"
       puts "Enter the number of the location for which you'd like to see the beer menu, or type 'list' to see the list of locations again, or type 'exit'."
