@@ -33,4 +33,5 @@ Basically just played with file structure and dependencies today.
 Also added some ideas for functionality in cli.rb #explore_beer. Need to work on Beer class as well
 
 9/21
-Some helpful notes on setting up scraper class in collaboration objects video aroing 27:--
+Some helpful notes on setting up scraper class in collaboration objects video around 27:--
+Also in antipatterns video ~31
