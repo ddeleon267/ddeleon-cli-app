@@ -19,3 +19,4 @@ require_relative "../lib/whats_on_tap/location"
 require_relative '../lib/whats_on_tap/cli'
 #maybe
 #require_relative 'whats_on_tap/cli'
+require_relative '../lib/whats_on_tap/scraper'
