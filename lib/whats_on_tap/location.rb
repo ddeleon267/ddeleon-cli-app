@@ -30,7 +30,7 @@ class WhatsOnTap::Location
 
     #will have to comment most/all fo what's below once I get scraping successfully
     location_1 = self.new
-    location_1.name = "Hope Angel Brauhaus"
+    location_1.name = "Hop Angel Brauhaus"
     location_1.address = "7980 Oxford Ave"
     location_1.distance = "1.0 miles"
     location_1.beer_list = ["Alpine Willy Wheat Ale", "Benediktiner Oktoberfest", "Bitburger Pilsner", "Blake's Black Philip Hard Cider",
