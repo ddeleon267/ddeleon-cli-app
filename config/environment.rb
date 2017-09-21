@@ -1,4 +1,10 @@
 #My environment! Yeehaw
+
+#General load order:
+#1.load bundler
+#2.Require the gems from the Gemfile using bundler
+#3. Load libraries
+
 require 'bundler'
 
 
