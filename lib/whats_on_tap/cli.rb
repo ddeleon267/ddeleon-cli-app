@@ -22,6 +22,7 @@ class WhatsOnTap::CLI
   end
 
   def list_beers
+    #should probably refactor this to iterate over @locations, is obnoxious as it stands
     puts ""
     puts "Enter the number of the location for which you'd like to see the beer menu, or type 'list' to see the list of locations again, or type 'exit'."
     puts ""
@@ -31,15 +32,15 @@ class WhatsOnTap::CLI
       case input
       when "1"
         puts ""
-        puts "#1 beer list"
+        puts @locations[0].beer_list
         explore_beer
       when "2"
         puts ""
-        puts "#2 beer list"
+        puts @locations[1].beer_list
         explore_beer
       when "3"
         puts ""
-        puts "#3 beer list"
+        puts @locations[1].beer_list
         explore_beer
       when "list"
         list_locations
