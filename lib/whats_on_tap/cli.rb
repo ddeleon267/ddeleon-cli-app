@@ -12,6 +12,7 @@ class WhatsOnTap::CLI
 
   def list_locations
     puts "Please enter your zip code to find the closest places offering craft brews on tap."
+    puts ""
 
     #This is temporary, so code is workable for now. lists the stump locations before user is prompted to do anything
     @locations = WhatsOnTap::Location.all
@@ -29,12 +30,15 @@ class WhatsOnTap::CLI
       input = gets.strip.downcase
       case input
       when "1"
+        puts ""
         puts "#1 beer list"
         explore_beer
       when "2"
+        puts ""
         puts "#2 beer list"
         explore_beer
       when "3"
+        puts ""
         puts "#3 beer list"
         explore_beer
       when "list"
@@ -49,28 +53,36 @@ class WhatsOnTap::CLI
 
   def explore_beer
     #asks for prompt and responds to it
+    puts ""
     puts "Enter the number of a beer you'd like to learn more about, or type 'list' to see the list of locations again, or type 'exit'."
+    puts ""
     input = nil
     while input != "exit"
       input = gets.strip.downcase
     #
       case input
       when "1"
+        puts ""
         puts "some properties about beer #1"
       when "2"
+        puts ""
         puts "some properties about beer #2"
       when "3"
+        puts ""
         puts "some properties about beer #3"
       when "list"
         list_locations
       else
+        puts ""
         puts "Type 'list' or 'exit.'"
+        puts ""
       end
     end
 
  end
 
   def goodbye
+    puts ""
     puts "Until next time!"
   end
 
