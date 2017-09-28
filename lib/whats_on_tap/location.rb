@@ -13,7 +13,8 @@ class WhatsOnTap::Location
 
   def self.scrape_locations
     #person is prompted to give zip code
-    #magic scraping voodo happens
+
+    #magic scraping voodo happens => Just scrape one site for now
     #Produce array of scraped locations
     #Prompt user to give number
     #Scrape beer list of chosen input using magic voodo
@@ -24,8 +25,6 @@ class WhatsOnTap::Location
     #locations << self.scrape_site
 
     # locations
-
-
 
 
     #will have to comment most/all fo what's below once I get scraping successfully
