@@ -67,13 +67,28 @@ class WhatsOnTap::CLI
       case input
       when "1"
         puts ""
+        #eventually will need to refactor this to iterate over @beers bc right now it's ugly AF
+        
         puts @beers[0].name
+        puts @beers[0].style
+        puts @beers[0].notes
+        puts @beers[0].abv
+        puts @beers[0].price
+
       when "2"
         puts ""
         puts @beers[1].name
+        puts @beers[1].style
+        puts @beers[1].notes
+        puts @beers[1].abv
+        puts @beers[1].price
       when "3"
         puts ""
         puts @beers[2].name
+        puts @beers[2].style
+        puts @beers[2].notes
+        puts @beers[2].abv
+        puts @beers[2].price
       when "list"
         list_locations
       else

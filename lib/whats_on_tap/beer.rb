@@ -15,6 +15,7 @@ class Beer
   end
 
   def self.scrape_beers
+    #need to get all of these attributes from scraping, just using stubbed data for now
     beer_1 = self.new("Magic Hat Elder Betty")
     beer_1.style = "Elderberry Weiss"
     beer_1.notes = ["2-row pale, wheat malts, Apollo hops, elderberry"]
