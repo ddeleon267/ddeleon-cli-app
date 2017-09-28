@@ -40,3 +40,8 @@ Really struggled with the CLI today. I want the user to be able to exit successf
 
 After the #explore_beer method is called I would really like for the user to get back to the previous list of beers easily to select other beers.
 I think I will come back to that later, though, as I want to get to refactoring my code so that it at least relies on objects (locations, beers) instead of strings.
+
+9/28
+It looks like the easiest way for me to go about scraping at least for right now is to scrape a site that basically functions as an app that does
+what my app is doing-- scraping locations and scraping for data about beers. I'm not crazy about that and I'm not sure if it's ideal but I'm going to
+try it and see what I can get working for now. Would be happy to modify later.
