@@ -3,6 +3,7 @@
 class WhatsOnTap::CLI
 
   def call
+    # Scraper.scrape_beer_menus_site
     puts "What's on Tap?"
     puts ""
     list_locations
@@ -68,7 +69,7 @@ class WhatsOnTap::CLI
       when "1"
         puts ""
         #eventually will need to refactor this to iterate over @beers bc right now it's ugly AF
-        
+
         puts @beers[0].name
         puts @beers[0].style
         puts @beers[0].notes

@@ -5,6 +5,17 @@ class Scraper
   #
   # end
 
+
+  def self.scrape_beer_menus_site
+    #not sure how to get this to work. not sure if even accessing site correctly
+    @doc = Nokogiri::HTML(open("https://www.beermenus.com/places/19111"))
+
+    @doc.css("li.pure-list-item").first.text
+
+  end
+
+
+
 end
 
 #1. Class needs to instantiate new locations based on zip
