@@ -4,14 +4,21 @@ class WhatsOnTap::CLI
 
   def call
     # Scraper.scrape_beer_menus_site
-    puts "What's on Tap?"
-    puts ""
+    #Scraper.scrape_hop_angel_beer_list
+    welcome
     list_locations
     list_beers
     goodbye
   end
 
+  def welcome
+    puts "Welcome!"
+    puts "If you'd like to find out what craft beers are on tap near you, you're in the right place!"
+    puts ""
+  end
+
   def list_locations
+    #This doesn't actually work as planned now, just has some stubbed locations below that are near me
     puts "Please enter your zip code to find the closest places offering craft brews on tap."
     puts ""
 
