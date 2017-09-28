@@ -14,6 +14,7 @@ require_relative "../lib/whats_on_tap/version.rb"
 #require_relative "whats_on_tap/version"
 
 require_relative "../lib/whats_on_tap/location"
+require_relative "../lib/whats_on_tap/beer"
 
 
 require_relative '../lib/whats_on_tap/cli'

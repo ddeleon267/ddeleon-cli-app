@@ -53,6 +53,9 @@ class WhatsOnTap::CLI
   end
 
   def explore_beer
+    # binding.pry
+    @beers = Beer.all
+
     #asks for prompt and responds to it
     puts ""
     puts "Enter the number of a beer you'd like to learn more about, or type 'list' to see the list of locations again, or type 'exit'."
@@ -64,13 +67,13 @@ class WhatsOnTap::CLI
       case input
       when "1"
         puts ""
-        puts "some properties about beer #1"
+        puts @beers[0].name
       when "2"
         puts ""
-        puts "some properties about beer #2"
+        puts @beers[1].name
       when "3"
         puts ""
-        puts "some properties about beer #3"
+        puts @beers[2].name
       when "list"
         list_locations
       else
