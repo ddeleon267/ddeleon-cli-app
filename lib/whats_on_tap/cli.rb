@@ -1,10 +1,6 @@
-#This is the CLI controller
-#might not need to require anything here?
 class WhatsOnTap::CLI
 
   def call
-    # Scraper.scrape_beer_menus_site
-    #Scraper.scrape_hop_angel_beer_list
     welcome
     list_locations
     list_beers
@@ -13,6 +9,7 @@ class WhatsOnTap::CLI
 
   def welcome
     puts "Welcome!"
+    puts ""
     puts "If you'd like to find out what craft beers are on tap near you, you're in the right place!"
     puts ""
   end
@@ -23,17 +20,17 @@ class WhatsOnTap::CLI
     puts ""
 
     #This is temporary, so code is workable for now. lists the stump locations before user is prompted to do anything
-    @locations = WhatsOnTap::Location.all
+    @locations = WhatsOnTap::Location.scrape_locations
     @locations.each.with_index(1) do |location, i|
       puts "#{i}. #{location.name} - #{location.distance} away"
     end
   end
 
   def list_beers
-    #should probably refactor this to iterate over @locations, is obnoxious as it stands
     puts ""
     puts "Enter the number of the location for which you'd like to see the beer menu, or type 'list' to see the list of locations again, or type 'exit'."
     puts ""
+
     input = nil
     while input != "exit"
       input = gets.strip.downcase
@@ -61,10 +58,8 @@ class WhatsOnTap::CLI
   end
 
   def explore_beer
-    # binding.pry
-    @beers = Beer.all
+    @beers = Beer.scrape_beers
 
-    #asks for prompt and responds to it
     puts ""
     puts "Enter the number of a beer you'd like to learn more about, or type 'list' to see the list of locations again, or type 'exit'."
     puts ""
@@ -75,7 +70,6 @@ class WhatsOnTap::CLI
       case input
       when "1"
         puts ""
-        #eventually will need to refactor this to iterate over @beers bc right now it's ugly AF
 
         puts @beers[0].name
         puts @beers[0].style

@@ -5,8 +5,12 @@ class Scraper
   #
   # end
 
+  def scrape
+    #scrape_for_locations
+  end
 
-  def self.scrape_beer_menus_site
+
+  def scrape_for_locations
     #not sure how to get this to work. not sure if even accessing site correctly
     # @doc = Nokogiri::HTML(open("https://www.beermenus.com/places/19111"))
 
@@ -15,10 +19,10 @@ class Scraper
 
   end
 
-  def self.scrape_hop_angel_beer_list
+  def scrape_hop_angel_beer_list
 
-    @doc = Nokogiri::HTML(open("http://hopangel.com/beer.html"))
-    binding.pry
+    #@doc = Nokogiri::HTML(open("http://hopangel.com/beer.html"))
+    # binding.pry
     # @doc.css("h1").text  #so this is doing nothing????
 
   end

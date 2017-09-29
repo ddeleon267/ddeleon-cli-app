@@ -1,33 +1,12 @@
-#might not need to require anything here?
-
 class WhatsOnTap::Location
   @@locations = []
 
   attr_accessor :name, :address, :distance, :beer_list
-  #maybe :beers instead of :beer_list? thinking in terms of 'has many' relationship
-
-  def self.all
-    #I should return a bunch of instances of locations
-    self.scrape_locations
-  end
-
-  def self.scrape_locations
-    #person is prompted to give zip code
-
-    #magic scraping voodo happens => Just scrape one site for now
-    #Produce array of scraped locations
-    #Prompt user to give number
-    #Scrape beer list of chosen input using magic voodo
-    #prompt to learn more about specific beer or w.e.
-    #scrape video to give more info about beer or go back and do something else
-    # locations = []
-    #
-    #locations << self.scrape_site
-
-    # locations
 
 
-    #will have to comment most/all fo what's below once I get scraping successfully
+  def self.scrape_locations #should probably be in scraper
+
+    #stubbed data, need to actually scrape from site
     location_1 = self.new
     location_1.name = "Hop Angel Brauhaus"
     location_1.address = "7980 Oxford Ave"
@@ -51,17 +30,6 @@ class WhatsOnTap::Location
 
     [location_1, location_2, location_3]
 
-  end
-
-  # def self.scrape_site
-  #   doc = Nokogiri::HTML(open("add_url_here "))
-      #binding.pry
-      #Avi talks a bit about his scraping workflow at 53:50 in walkthrough vid
-  # end
-
-  def initialize
-
-  #
   end
 
 end

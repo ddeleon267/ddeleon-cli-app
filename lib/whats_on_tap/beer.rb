@@ -9,12 +9,7 @@ class Beer
     @name = name
   end
 
-  def self.all
-    #I should return a bunch of instances of beers
-    self.scrape_beers
-  end
-
-  def self.scrape_beers
+  def self.scrape_beers #should probably be in scraper
     #need to get all of these attributes from scraping, just using stubbed data for now
     beer_1 = self.new("Magic Hat Elder Betty")
     beer_1.style = "Elderberry Weiss"
