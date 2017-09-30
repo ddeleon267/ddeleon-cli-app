@@ -10,9 +10,13 @@ class WhatsOnTap::Location
 
     @doc = Nokogiri::HTML(open("https://www.beermenus.com/search?q=philadelphia"))
     places = @doc.css("h3.mb-0.text-normal a").text
-    establishment_type = @doc.css("h3.mb-0.text-normal span").first.text
-    num_beers_on_tap = @doc.css("p.caption.text-gray.mb-small").first.text
+    new_string = places.gsub(/phia/, "phia, ").gsub(/PHIA/, "PHIA, ").split(",")
+    new_string
     binding.pry
+
+    # establishment_type = @doc.css("h3.mb-0.text-normal span").first.text
+    # num_beers_on_tap = @doc.css("p.caption.text-gray.mb-small").first.text
+    # binding.pry
 
 
     # location_1 = self.new
