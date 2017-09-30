@@ -16,14 +16,15 @@ class WhatsOnTap::CLI
 
   def list_locations
     #This doesn't actually work as planned now, just has some stubbed locations below that are near me
-    puts "Please enter your zip code to find the closest places offering craft brews on tap."
+    puts "Please enter your city to find the closest places offering craft brews on tap."
     puts ""
 
     #This is temporary, so code is workable for now. lists the stump locations before user is prompted to do anything
     @locations = WhatsOnTap::Location.scrape_locations
-    @locations.each.with_index(1) do |location, i|
-      puts "#{i}. #{location.name} - #{location.distance} away"
-    end
+    # @locations.each.with_index(1) do |location, i|
+    #   puts "#{i}. #{location.name} - #{location.distance} away"
+    @locations
+    # end
   end
 
   def list_beers
