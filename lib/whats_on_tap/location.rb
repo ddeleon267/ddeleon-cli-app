@@ -1,5 +1,5 @@
 class WhatsOnTap::Location
-  @@locations = []
+  @@all = []
 
   attr_accessor :name, :address, :distance, :beer_list, :beers_on_tap, :establishment_type
 
@@ -11,5 +11,8 @@ class WhatsOnTap::Location
     @@all << self
   end
 
-
+  def self.all
+    @@all
+  end
+  
 end
