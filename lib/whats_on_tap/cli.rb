@@ -22,10 +22,10 @@ class WhatsOnTap::CLI
 
     #This is temporary, so code is workable for now. lists the stump locations before user is prompted to do anything
     @locations = WhatsOnTap::Location.scrape_locations
-    # @locations.each.with_index(1) do |location, i|
-    #   puts "#{i}. #{location}"
-    #   #puts "#{i}. #{location.name} - #{location.distance} away"
-    # end
+    @locations.each.with_index(1) do |location, i|
+        puts "#{i}. #{location.strip}" 
+      #puts "#{i}. #{location.name} - #{location.distance} away"
+    end
     # puts "#{@locations}"
 
   end

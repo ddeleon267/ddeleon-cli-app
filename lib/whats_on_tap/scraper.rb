@@ -8,8 +8,7 @@ class Scraper
 
   def scrape
     #not sure how to get this to work. not sure if even accessing site correctly
-    @doc = Nokogiri::HTML(open("https://www.beermenus.com/places/19111"))
-    @doc.css("h3.mb-0.text-normal").first.text
+    
 
   end
 
