@@ -1,14 +1,9 @@
-class Scraper
-
-  # def initialize(url)
-  #   @location = Location.new
-  #
-  # end
+class WhatsOnTap::Scraper
 
 
-  def scrape
-    #not sure how to get this to work. not sure if even accessing site correctly
-    
+
+
+  def scrape_locations
 
   end
 
