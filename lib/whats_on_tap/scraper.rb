@@ -7,33 +7,36 @@ class WhatsOnTap::Scraper
   end
 
   def self.scrape_locations
-      #stubbed data, need to actually scrape from site
+    locations = self.get_beer_menu_page.css("h3.mb-0.text-normal a").text
 
-      places = self.get_beer_menu_page.css("h3.mb-0.text-normal a").text
+    #So a lot of this formatting is particular to the philadelphia list and will need to change when
+    #the gem actually responds to the city input (rather than just defaulting to philly data)
+    new_string = locations.gsub(/phia/, "phia, ").gsub(/PHIA/, "PHIA, ").split(",").first(10)
+    new_string[8][6]=""
+    new_string[9][1]=""
+    new_string
 
-      #So a lot of this formatting is particular to the philadelphia list and will need to change when
-      #the gem actually responds to the city input (rather than just defaulting to philly data)
-      new_string = places.gsub(/phia/, "phia, ").gsub(/PHIA/, "PHIA, ").split(",").first(10)
-      new_string[8][6]=""
-      new_string[9][1]=""
-      new_string
+    # num_beers_on_tap = @doc.css("p.caption.text-gray.mb-small").first.text
+    # binding.pry
+  end
 
+  def self.scrape_establishment_type
+    establishment_type = self.get_beer_menu_page.css("h3.mb-0.text-normal span").text
+    establishment_array = establishment_type.split("·")
+    establishment_array.delete_at(0)
+    establishment_array
 
-      # establishment_type = @doc.css("h3.mb-0.text-normal span").first.text
-      # num_beers_on_tap = @doc.css("p.caption.text-gray.mb-small").first.text
-      # binding.pry
+    # binding.pry
   end
 
   def self.make_locations
     #Idk if this is going to work, but it should create new locations from the array created in .scrape_locations
     scrape_locations.each.with_index(1) do |location,i|
-      WhatsOnTap::Location.new(location)
+      new_location = WhatsOnTap::Location.new(location)
       # location
-      puts "#{i}. #{location}"
+      puts "#{i}. #{new_location.name}"
     end
 
-
-    # binding.pry
   end
 
 
