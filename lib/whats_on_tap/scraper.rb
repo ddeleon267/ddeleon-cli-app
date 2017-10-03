@@ -1,8 +1,6 @@
 class WhatsOnTap::Scraper
 
 
-
-
   def self.scrape_locations
 
       #stubbed data, need to actually scrape from site
@@ -22,14 +20,6 @@ class WhatsOnTap::Scraper
       # num_beers_on_tap = @doc.css("p.caption.text-gray.mb-small").first.text
       # binding.pry
 
-
-  end
-
-  def scrape_hop_angel_beer_list
-
-    #@doc = Nokogiri::HTML(open("http://hopangel.com/beer.html"))
-    # binding.pry
-    # @doc.css("h1").text  #so this is doing nothing????
 
   end
 
