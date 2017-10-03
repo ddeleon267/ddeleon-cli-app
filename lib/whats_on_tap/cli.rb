@@ -1,6 +1,7 @@
 class WhatsOnTap::CLI
 
   def call
+    #order of operations of the cli
     welcome
     list_locations
     # binding.pry
@@ -9,6 +10,7 @@ class WhatsOnTap::CLI
   end
 
   def welcome
+    #all this should do is greet the user
     puts "Welcome!"
     puts ""
     puts "If you'd like to find out what craft beers are on tap near you, you're in the right place!"
@@ -20,7 +22,9 @@ class WhatsOnTap::CLI
     puts "Please enter your city to find the closest places offering craft brews on tap."
     puts ""
 
-    #This is temporary, so code is workable for now. lists the stump locations before user is prompted to do anything
+    #get user input and do something with it
+
+    #This is temporary, so code is workable for now. lists the stump locations before user is prompted to choose one
     @locations = WhatsOnTap::Scraper.scrape_locations
     @locations.each.with_index(1) do |location, i|
         puts "#{i}. #{location.strip}"
