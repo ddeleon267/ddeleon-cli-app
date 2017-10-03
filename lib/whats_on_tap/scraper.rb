@@ -1,12 +1,15 @@
 class WhatsOnTap::Scraper
 
 
-  def self.scrape_locations
+  def self.get_beer_menu_page
+    Nokogiri::HTML(open("https://www.beermenus.com/search?q=philadelphia"))
+    #this will need to be modified based on the city the user gives
+  end
 
+  def self.scrape_locations
       #stubbed data, need to actually scrape from site
 
-      @doc = Nokogiri::HTML(open("https://www.beermenus.com/search?q=philadelphia"))
-      places = @doc.css("h3.mb-0.text-normal a").text
+      places = self.get_beer_menu_page.css("h3.mb-0.text-normal a").text
 
       #So a lot of this formatting is particular to the philadelphia list and will need to change when
       #the gem actually responds to the city input (rather than just defaulting to philly data)
@@ -19,9 +22,9 @@ class WhatsOnTap::Scraper
       # establishment_type = @doc.css("h3.mb-0.text-normal span").first.text
       # num_beers_on_tap = @doc.css("p.caption.text-gray.mb-small").first.text
       # binding.pry
-
-
   end
+
+  
 
 
 
