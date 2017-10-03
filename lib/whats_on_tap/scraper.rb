@@ -26,10 +26,14 @@ class WhatsOnTap::Scraper
 
   def self.make_locations
     #Idk if this is going to work, but it should create new locations from the array created in .scrape_locations
-    scrape_locations.each do |l|
-      WhatsOnTap::Location.new
+    scrape_locations.each.with_index(1) do |location,i|
+      WhatsOnTap::Location.new(location)
+      # location
+      puts "#{i}. #{location}"
     end
 
+
+    # binding.pry
   end
 
 

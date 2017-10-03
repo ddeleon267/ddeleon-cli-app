@@ -2,6 +2,11 @@ class WhatsOnTap::CLI
 
   def call
     #order of operations of the cli
+
+    #this is just here temporarily
+    WhatsOnTap::Scraper.make_locations
+    # binding.pry
+
     welcome
     list_locations
     # binding.pry
@@ -25,12 +30,14 @@ class WhatsOnTap::CLI
     #get user input and do something with it
 
     #This is temporary, so code is workable for now. lists the stump locations before user is prompted to choose one
-    @locations = WhatsOnTap::Scraper.scrape_locations
-    @locations.each.with_index(1) do |location, i|
-        puts "#{i}. #{location.strip}"
-      #puts "#{i}. #{location.name} - #{location.distance} away"
-    end
-    # puts "#{@locations}"
+    WhatsOnTap::Scraper.make_locations
+
+    # @locations = WhatsOnTap::Scraper.scrape_locations
+    # @locations.each.with_index(1) do |location, i|
+    #     puts "#{i}. #{location.strip}"
+
+    # end
+
 
   end
 
