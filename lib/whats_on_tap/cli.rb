@@ -2,6 +2,7 @@ class WhatsOnTap::CLI
 
   def call
     #order of operations of the cli
+    WhatsOnTap::Scraper.scrape_num_beers_on_tap
 
     welcome
     list_locations

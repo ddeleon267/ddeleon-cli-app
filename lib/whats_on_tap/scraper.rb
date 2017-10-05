@@ -15,9 +15,6 @@ class WhatsOnTap::Scraper
     new_string[8][6]=""
     new_string[9][1]=""
     new_string
-
-    # num_beers_on_tap = @doc.css("p.caption.text-gray.mb-small").first.text
-    # binding.pry
   end
 
   def self.scrape_establishment_type
@@ -25,12 +22,14 @@ class WhatsOnTap::Scraper
     establishment_array = establishment_type.split("·")
     establishment_array.delete_at(0)
     establishment_array
+  end
 
-    # binding.pry
+  def self.scrape_num_beers_on_tap
+    num_beers_on_tap = self.get_beer_menu_page.css("p.caption.text-gray.mb-small").first.text
+    binding.pry
   end
 
   def self.make_locations
-    #Idk if this is going to work, but it should create new locations from the array created in .scrape_locations
     scrape_locations.each.with_index(1) do |location,i|
       new_location = WhatsOnTap::Location.new(location)
       # location
