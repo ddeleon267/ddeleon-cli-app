@@ -2,8 +2,6 @@ class WhatsOnTap::CLI
 
   def call
     #order of operations of the cli
-    WhatsOnTap::Scraper.scrape_num_beers_on_tap
-
     welcome
     list_locations
     # binding.pry
@@ -20,10 +18,8 @@ class WhatsOnTap::CLI
   end
 
   def list_locations
-    #This doesn't actually work as planned now, just has some stubbed locations below that are near me
-    puts "Please enter your city to find the closest places offering craft brews on tap."
-    puts ""
-
+    # puts "Please enter your city to find the closest places offering craft brews on tap."
+    # puts ""
     #get user input and do something with it
 
     WhatsOnTap::Scraper.make_locations
@@ -38,17 +34,18 @@ class WhatsOnTap::CLI
     while input != "exit"
       input = gets.strip.downcase
       case input
+        #will probably need to change structure of this, 10 case statements seems excessive
       when "1"
         puts ""
-        puts @locations[0].beer_list
+        puts "beer list for location 1"
         explore_beer
       when "2"
         puts ""
-        puts @locations[1].beer_list
+        puts "beer list for location 2"
         explore_beer
       when "3"
         puts ""
-        puts @locations[1].beer_list
+        puts "beer list for location 3"
         explore_beer
       when "list"
         list_locations

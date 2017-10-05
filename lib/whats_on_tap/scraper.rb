@@ -35,8 +35,6 @@ class WhatsOnTap::Scraper
     num_beers_array.delete_at(0)
     chopped_num_beers_array = num_beers_array.map { |e| e.chop }
     chopped_num_beers_array #why is this only giving the first 8??
-
-    binding.pry
   end
 
   def self.make_locations
