@@ -25,7 +25,17 @@ class WhatsOnTap::Scraper
   end
 
   def self.scrape_num_beers_on_tap
-    num_beers_on_tap = self.get_beer_menu_page.css("p.caption.text-gray.mb-small").first.text
+    num_beers_on_tap = self.get_beer_menu_page.css("p.caption.text-gray.mb-small").text
+
+    num_beers_array = num_beers_on_tap.split("O").map do |e|
+      e.insert(0, 'O').insert(-1,' |')
+      e.slice(0..(e.index(' |'))) if e.include?(' |')
+    end
+
+    num_beers_array.delete_at(0)
+    chopped_num_beers_array = num_beers_array.map { |e| e.chop }
+    chopped_num_beers_array #why is this only giving the first 8??
+
     binding.pry
   end
 
