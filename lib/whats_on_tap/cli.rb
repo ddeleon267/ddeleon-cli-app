@@ -1,7 +1,6 @@
 class WhatsOnTap::CLI
 
   def call
-    #order of operations of the cli
 
     welcome
     list_locations
@@ -10,7 +9,6 @@ class WhatsOnTap::CLI
   end
 
   def welcome
-    #all this should do is greet the user
     puts "Welcome!"
     puts ""
     puts "If you'd like to find out what craft beers are on tap near you, you're in the right place!"
@@ -18,19 +16,15 @@ class WhatsOnTap::CLI
   end
 
   def make_locations
-    #testing, put it in the wrong place before!
+    WhatsOnTap::Scraper.get_beer_list_page
     WhatsOnTap::Scraper.scrape_location_url
-    binding.pry
 
     WhatsOnTap::Scraper.scrape_locations.each.with_index(1) do |location,i|
       new_location = WhatsOnTap::Location.new(location)
       new_location.establishment_type = WhatsOnTap::Scraper.scrape_establishment_type[i]
       new_location.num_beers_on_tap = WhatsOnTap::Scraper.scrape_num_beers_on_tap[i]
-      # location
 
       puts "#{i}. #{new_location.name}  (#{new_location.establishment_type})   --->   #{new_location.num_beers_on_tap}"
-
-
     end
   end
 
@@ -77,7 +71,6 @@ class WhatsOnTap::CLI
       else
         puts "Type 'list' or 'exit.'"
       end
-
     end
 
   end

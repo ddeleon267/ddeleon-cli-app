@@ -26,8 +26,11 @@ class WhatsOnTap::Scraper
 
   def self.scrape_location_url
     url = self.page.css("h3.mb-0.text-normal a").take(5).map { |link| link['href']}
-    binding.pry
+  end
 
+  def self.get_beer_list_page
+    modified_url = "https://www.beermenus.com#{self.scrape_location_url[0]}"
+    @@beer_page = Nokogiri::HTML(open(modified_url))
   end
 
 end
