@@ -41,6 +41,16 @@ class WhatsOnTap::Scraper
     # binding.pry
   end
 
+  def self.get_beer_data_page(beer)
+    modified_beer_url = "https://www.beermenus.com#{self.scrape_location_url[beer]}"
+    @@beer_page = Nokogiri::HTML(open(modified_beer_url))
+  end
+
+  def self.scrape_individual_beer_data
+    
+
+  end
+
 end
 
 #1. Class needs to instantiate new locations based on zip

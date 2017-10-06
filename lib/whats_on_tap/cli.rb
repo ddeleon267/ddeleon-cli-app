@@ -14,6 +14,15 @@ class WhatsOnTap::CLI
     puts ""
   end
 
+  def list_locations
+    puts "Please enter your city to find the closest places offering craft brews on tap."
+    puts ""
+    city = gets.strip
+    WhatsOnTap::Scraper.get_beer_menu_page(city)
+    puts ""
+    make_locations
+  end
+
   def make_locations
     WhatsOnTap::Scraper.scrape_location_url
 
@@ -26,33 +35,28 @@ class WhatsOnTap::CLI
     end
   end
 
-  def make_beers
-    WhatsOnTap::Scraper.scrape_beers.each.with_index(1) do |beer,i|
-      new_beer = WhatsOnTap::Beer.new(beer)
-      puts "#{i}. #{new_beer.name}"
-      # binding.pry
-    end
-  end
-
-  def list_locations
-    puts "Please enter your city to find the closest places offering craft brews on tap."
-    puts ""
-    city = gets.strip
-    WhatsOnTap::Scraper.get_beer_menu_page(city)
-    puts "" 
-    make_locations
-  end
-
   def list_beers
     puts ""
     puts "Enter the number of the location for which you'd like to see the beer menu, or type 'list' to see the list of locations again, or type 'exit'."
     puts ""
 
     place = gets.strip
-
     WhatsOnTap::Scraper.get_beer_list_page(place.to_i-1)
+
     puts "" #silly me!
     make_beers
+  end
+
+  def make_beers
+    WhatsOnTap::Scraper.scrape_beers.each.with_index(1) do |beer,i|
+      new_beer = WhatsOnTap::Beer.new(beer)
+      puts "#{i}. #{new_beer.name}"
+    end
+  end
+
+  def goodbye
+    puts ""
+    puts "Until next time!"
   end
 
   def explore_beer
@@ -99,10 +103,5 @@ class WhatsOnTap::CLI
     end
 
  end
-
-  def goodbye
-    puts ""
-    puts "Until next time!"
-  end
 
 end

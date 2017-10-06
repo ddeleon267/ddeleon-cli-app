@@ -1,7 +1,7 @@
 #might not need to require anything here?
 
 class WhatsOnTap::Beer
-  attr_accessor :name, :style, :notes, :abv, :price
+  attr_accessor :name, :brewery, :brewery_location, :type, :abv, :notes, :description, :price
 
   @@beers = []
 

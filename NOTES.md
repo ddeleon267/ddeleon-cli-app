@@ -58,3 +58,5 @@ https://www.beermenus.com/places/12091-uno-chicago-grill-deptford
 https://www.beermenus.com/places/3120-chicago-street-pub
 
 can successfully scrape for the urls e.g. /places/3120-chicago-street-pub, need to figure out where to go from there
+
+10/6
