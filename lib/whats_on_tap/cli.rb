@@ -26,7 +26,7 @@ class WhatsOnTap::CLI
       new_location.num_beers_on_tap = WhatsOnTap::Scraper.scrape_num_beers_on_tap[i]
       # location
 
-      puts "#{i}. #{new_location.name} - #{new_location.establishment_type} - #{new_location.num_beers_on_tap}"
+      puts "#{i}. #{new_location.name}  (#{new_location.establishment_type})   --->   #{new_location.num_beers_on_tap}"
 
 
     end
