@@ -41,15 +41,18 @@ class WhatsOnTap::Scraper
     # binding.pry
   end
 
-  def self.get_beer_data_page(beer)
-    modified_beer_url = "https://www.beermenus.com#{self.scrape_location_url[beer]}"
-    @@beer_page = Nokogiri::HTML(open(modified_beer_url))
-  end
+  # def self.get_beer_data_page(beer)
+  #   modified_beer_url = "https://www.beermenus.com#{self.scrape_location_url[beer]}"
+  #   @@beer_page = Nokogiri::HTML(open(modified_beer_url))
+  # end
 
-  def self.scrape_individual_beer_data
-    
-
-  end
+  # def self.scrape_individual_beer_data
+  #     brewery = self.beer_page.css("div.pur-f-body a")
+  #     brewery_location = self.beer_page.css("p.mt-tiny.mb-0")
+  #     type_and_abv = self.beer_page.css("span.pure-icon-info p")
+  #     notes = self.beer_page.css("div.caption p")
+  #     description = self.beer_page.css("div.caption.beer-desc p")
+  # end
 
 end
 
