@@ -8,8 +8,8 @@ class WhatsOnTap::Location
 
   def initialize(name=nil, establishment_type=nil, beers_on_tap=nil)
     @name = name
-    @establishment_type = establishment_type
-    @beers_on_tap =
+    # @establishment_type = establishment_type
+    # @beers_on_tap = beers_on_tap
     @@all << self
   end
 

@@ -4,6 +4,7 @@ class WhatsOnTap::CLI
     #order of operations of the cli
     welcome
     list_locations
+
     # binding.pry
     list_beers
     goodbye
@@ -18,8 +19,10 @@ class WhatsOnTap::CLI
   end
 
   def list_locations
-    # puts "Please enter your city to find the closest places offering craft brews on tap."
-    # puts ""
+    puts "Please enter your city to find the closest places offering craft brews on tap."
+    puts ""
+    city = gets.strip
+    WhatsOnTap::Scraper.get_beer_menu_page(city)
     #get user input and do something with it
 
     WhatsOnTap::Scraper.make_locations
