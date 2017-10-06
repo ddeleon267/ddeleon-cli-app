@@ -45,3 +45,9 @@ I think I will come back to that later, though, as I want to get to refactoring 
 It looks like the easiest way for me to go about scraping at least for right now is to scrape a site that basically functions as an app that does
 what my app is doing-- scraping locations and scraping for data about beers. I'm not crazy about that and I'm not sure if it's ideal but I'm going to
 try it and see what I can get working for now. Would be happy to modify later.
+
+10/5
+First part of program/cli is working correctly, takes city input and appropriately displays relevant locations via instantiating objects (and setting their attributes) rather than stubbing data.
+
+Next step is to do the same for the beer objects.....need to be able to scrape individual location websites for their beer lists,
+instantiate beer objects based on that last, and set properties in a similar fashion.

@@ -5,8 +5,6 @@ class WhatsOnTap::CLI
 
     welcome
     list_locations
-
-    # binding.pry
     list_beers
     goodbye
   end
@@ -37,7 +35,6 @@ class WhatsOnTap::CLI
     puts ""
     city = gets.strip
     WhatsOnTap::Scraper.get_beer_menu_page(city)
-    #get user input and do something with it
     make_locations
   end
 
@@ -62,6 +59,14 @@ class WhatsOnTap::CLI
       when "3"
         puts ""
         puts "beer list for location 3"
+        explore_beer
+      when "4"
+        puts ""
+        puts "beer list for location 4"
+        explore_beer
+      when "5"
+        puts ""
+        puts "beer list for location 5"
         explore_beer
       when "list"
         list_locations
