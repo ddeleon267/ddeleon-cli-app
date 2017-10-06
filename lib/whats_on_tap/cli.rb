@@ -1,7 +1,6 @@
 class WhatsOnTap::CLI
 
   def call
-
     welcome
     list_locations
     list_beers
@@ -27,11 +26,20 @@ class WhatsOnTap::CLI
     end
   end
 
+  def make_beers
+    WhatsOnTap::Scraper.scrape_beers.each.with_index(1) do |beer,i|
+      new_beer = WhatsOnTap::Beer.new(beer)
+      puts "#{i}. #{new_beer.name}"
+      # binding.pry
+    end
+  end
+
   def list_locations
     puts "Please enter your city to find the closest places offering craft brews on tap."
     puts ""
     city = gets.strip
     WhatsOnTap::Scraper.get_beer_menu_page(city)
+    puts "" 
     make_locations
   end
 
@@ -40,39 +48,11 @@ class WhatsOnTap::CLI
     puts "Enter the number of the location for which you'd like to see the beer menu, or type 'list' to see the list of locations again, or type 'exit'."
     puts ""
 
-    place = nil
-    while place != "exit"
-      place = gets.strip
-      case place
-        #will probably need to change structure of this, 10 case statements seems excessive
-      when "1"
-        puts "boo"
-        # WhatsOnTap::Scraper.get_beer_list_page(1)
-        binding.pry
-        explore_beer
-      when "2"
-        puts ""
-        puts "beer list for location 2"
-        explore_beer
-      when "3"
-        puts ""
-        puts "beer list for location 3"
-        explore_beer
-      when "4"
-        puts ""
-        puts "beer list for location 4"
-        explore_beer
-      when "5"
-        puts ""
-        puts "beer list for location 5"
-        explore_beer
-      when "list"
-        list_locations
-      else
-        puts "Type 'list' or 'exit.'"
-      end
-    end
+    place = gets.strip
 
+    WhatsOnTap::Scraper.get_beer_list_page(place.to_i-1)
+    puts "" #silly me!
+    make_beers
   end
 
   def explore_beer

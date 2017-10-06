@@ -38,7 +38,7 @@ class WhatsOnTap::Scraper
 
   def self.scrape_beers
     beer_list = self.beer_page.css("h3.mb-0.text-normal a").take(10).map {|p| p.text}
-    binding.pry
+    # binding.pry
   end
 
 end

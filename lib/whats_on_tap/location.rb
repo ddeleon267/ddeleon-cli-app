@@ -21,7 +21,7 @@ class WhatsOnTap::Location
       object.establishment_type = WhatsOnTap::Scraper.scrape_establishment_type[i]
       end
 
-    binding.pry
+    # binding.pry
   end
 
 
