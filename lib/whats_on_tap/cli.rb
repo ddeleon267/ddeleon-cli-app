@@ -18,6 +18,10 @@ class WhatsOnTap::CLI
   end
 
   def make_locations
+    #testing, put it in the wrong place before!
+    WhatsOnTap::Scraper.scrape_location_url
+    binding.pry
+
     WhatsOnTap::Scraper.scrape_locations.each.with_index(1) do |location,i|
       new_location = WhatsOnTap::Location.new(location)
       new_location.establishment_type = WhatsOnTap::Scraper.scrape_establishment_type[i]

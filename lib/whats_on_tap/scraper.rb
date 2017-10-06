@@ -24,6 +24,12 @@ class WhatsOnTap::Scraper
     # binding.pry
   end
 
+  def self.scrape_location_url
+    url = self.page.css("h3.mb-0.text-normal a").take(5).map { |link| link['href']}
+    binding.pry
+
+  end
+
 end
 
 #1. Class needs to instantiate new locations based on zip

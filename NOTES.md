@@ -51,3 +51,8 @@ First part of program/cli is working correctly, takes city input and appropriate
 
 Next step is to do the same for the beer objects.....need to be able to scrape individual location websites for their beer lists,
 instantiate beer objects based on that last, and set properties in a similar fashion.
+??? How to access individual sites in a dynamic way??????
+
+https://www.beermenus.com/places/2348-uno-s-chicago-grill-neshaminy
+https://www.beermenus.com/places/12091-uno-chicago-grill-deptford
+https://www.beermenus.com/places/3120-chicago-street-pub
