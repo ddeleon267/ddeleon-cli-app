@@ -16,7 +16,6 @@ class WhatsOnTap::CLI
   end
 
   def make_locations
-    WhatsOnTap::Scraper.get_beer_list_page
     WhatsOnTap::Scraper.scrape_location_url
 
     WhatsOnTap::Scraper.scrape_locations.each.with_index(1) do |location,i|
@@ -41,14 +40,15 @@ class WhatsOnTap::CLI
     puts "Enter the number of the location for which you'd like to see the beer menu, or type 'list' to see the list of locations again, or type 'exit'."
     puts ""
 
-    input = nil
-    while input != "exit"
-      input = gets.strip.downcase
-      case input
+    place = nil
+    while place != "exit"
+      place = gets.strip
+      case place
         #will probably need to change structure of this, 10 case statements seems excessive
       when "1"
-        puts ""
-        puts "beer list for location 1"
+        puts "boo"
+        # WhatsOnTap::Scraper.get_beer_list_page(1)
+        binding.pry
         explore_beer
       when "2"
         puts ""

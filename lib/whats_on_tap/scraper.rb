@@ -3,11 +3,14 @@ class WhatsOnTap::Scraper
 
   def self.get_beer_menu_page(city)
     @@page = Nokogiri::HTML(open("https://www.beermenus.com/search?q=#{city}"))
-    #this will need to be modified based on the city the user gives
   end
 
   def self.page
     @@page
+  end
+
+  def self.beer_page
+    @@beer_page
   end
 
   def self.scrape_locations
@@ -28,9 +31,14 @@ class WhatsOnTap::Scraper
     url = self.page.css("h3.mb-0.text-normal a").take(5).map { |link| link['href']}
   end
 
-  def self.get_beer_list_page
-    modified_url = "https://www.beermenus.com#{self.scrape_location_url[0]}"
+  def self.get_beer_list_page(place)
+    modified_url = "https://www.beermenus.com#{self.scrape_location_url[place]}"
     @@beer_page = Nokogiri::HTML(open(modified_url))
+  end
+
+  def self.scrape_beers
+    beer_list = self.beer_page.css("h3.mb-0.text-normal a").take(10).map {|p| p.text}
+    binding.pry
   end
 
 end
