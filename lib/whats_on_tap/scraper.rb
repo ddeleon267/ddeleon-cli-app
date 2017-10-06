@@ -12,7 +12,7 @@ class WhatsOnTap::Scraper
 
   def self.scrape_locations
     locations = self.page.css("h3.mb-0.text-normal a").map {|p| p.text}
-    binding.pry
+    # binding.pry
   end
 
   def self.scrape_establishment_type
@@ -22,17 +22,6 @@ class WhatsOnTap::Scraper
   def self.scrape_num_beers_on_tap
     num_beers_on_tap = self.page.css("p.caption.text-gray.mb-small").text
   end
-
-  def self.make_locations
-    scrape_locations.each.with_index(1) do |location,i|
-      new_location = WhatsOnTap::Location.new(location)
-      # location
-      puts "#{i}. #{new_location.name}"
-    end
-
-  end
-
-
 
 end
 

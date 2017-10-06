@@ -18,14 +18,21 @@ class WhatsOnTap::CLI
     puts ""
   end
 
+  def make_locations
+    WhatsOnTap::Scraper.scrape_locations.each.with_index(1) do |location,i|
+      new_location = WhatsOnTap::Location.new(location)
+      # location
+      puts "#{i}. #{new_location.name}"
+    end
+  end
+
   def list_locations
     puts "Please enter your city to find the closest places offering craft brews on tap."
     puts ""
     city = gets.strip
     WhatsOnTap::Scraper.get_beer_menu_page(city)
     #get user input and do something with it
-
-    WhatsOnTap::Scraper.make_locations
+    make_locations
   end
 
   def list_beers
