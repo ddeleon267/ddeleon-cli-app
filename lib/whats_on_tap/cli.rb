@@ -2,6 +2,7 @@ class WhatsOnTap::CLI
 
   def call
     #order of operations of the cli
+
     welcome
     list_locations
 
@@ -21,8 +22,13 @@ class WhatsOnTap::CLI
   def make_locations
     WhatsOnTap::Scraper.scrape_locations.each.with_index(1) do |location,i|
       new_location = WhatsOnTap::Location.new(location)
+      new_location.establishment_type = WhatsOnTap::Scraper.scrape_establishment_type[i]
+      new_location.num_beers_on_tap = WhatsOnTap::Scraper.scrape_num_beers_on_tap[i]
       # location
-      puts "#{i}. #{new_location.name}"
+
+      puts "#{i}. #{new_location.name} - #{new_location.establishment_type} - #{new_location.num_beers_on_tap}"
+
+
     end
   end
 

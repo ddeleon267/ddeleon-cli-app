@@ -11,16 +11,17 @@ class WhatsOnTap::Scraper
   end
 
   def self.scrape_locations
-    locations = self.page.css("h3.mb-0.text-normal a").map {|p| p.text}
+    locations = self.page.css("h3.mb-0.text-normal a").take(5).map {|p| p.text}
     # binding.pry
   end
 
   def self.scrape_establishment_type
-    establishment_type = self.page.css("h3.mb-0.text-normal span").text
+    establishment_type = self.page.css("h3.mb-0.text-normal span").take(5).map {|p| p.text}
   end
 
   def self.scrape_num_beers_on_tap
-    num_beers_on_tap = self.page.css("p.caption.text-gray.mb-small").text
+    num_beers_on_tap = self.page.css("p.caption.text-gray.mb-small").take(5).map {|p| p.text}
+    # binding.pry
   end
 
 end
