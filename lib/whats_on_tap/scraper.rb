@@ -13,34 +13,14 @@ class WhatsOnTap::Scraper
   def self.scrape_locations
     locations = self.page.css("h3.mb-0.text-normal a").map {|p| p.text}
     binding.pry
-
-    #So a lot of this formatting is particular to the philadelphia list and will need to change when
-    #the gem actually responds to the city input (rather than just defaulting to philly data)
-
-    # new_string = locations.gsub(/phia/, "phia, ").gsub(/PHIA/, "PHIA, ").split(",").first(10)
-    # new_string[8][6]=""
-    # new_string[9][1]=""
-    # new_string
   end
 
   def self.scrape_establishment_type
     establishment_type = self.page.css("h3.mb-0.text-normal span").text
-    # establishment_array = establishment_type.split("·")
-    # establishment_array.delete_at(0)
-    # establishment_array
   end
 
   def self.scrape_num_beers_on_tap
     num_beers_on_tap = self.page.css("p.caption.text-gray.mb-small").text
-
-    # num_beers_array = num_beers_on_tap.split("O").map do |e|
-    #   e.insert(0, 'O').insert(-1,' |')
-    #   e.slice(0..(e.index(' |'))) if e.include?(' |')
-    # end
-    #
-    # num_beers_array.delete_at(0)
-    # chopped_num_beers_array = num_beers_array.map { |e| e.chop }
-    # chopped_num_beers_array #why is this only giving the first 8??
   end
 
   def self.make_locations
