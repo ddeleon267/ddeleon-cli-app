@@ -24,7 +24,7 @@ class WhatsOnTap::Scraper
   #---------------------------
 
   #scrape for url... should I just make this a location attribute???
-  def self.scrape_location_url
+  def self.scrape_location_url #######
     url = self.page.css("h3.mb-0.text-normal a").take(5).map { |link| link['href']}
   end
 
@@ -44,10 +44,15 @@ class WhatsOnTap::Scraper
   end
   #---------------------------
   #accesses an individual beer's page
+  def self.scrape_beer_url
+    beer_url = self.beers_page.css("h3.mb-0.text-normal a").take(5).map { |link| link['href']}
+  end
+
   def self.get_beer_data_page(beer)
     #maybe the problem is here???
-    modified_beer_url = "https://www.beermenus.com#{self.scrape_location_url[beer]}"
+    modified_beer_url = "https://www.beermenus.com#{self.scrape_beer_url[beer]}"
     @@beer_page = Nokogiri::HTML(open(modified_beer_url))
+    binding.pry
   end
 
   def self.beer_page
