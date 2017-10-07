@@ -60,3 +60,6 @@ https://www.beermenus.com/places/3120-chicago-street-pub
 can successfully scrape for the urls e.g. /places/3120-chicago-street-pub, need to figure out where to go from there
 
 10/6
+
+https://www.beermenus.com/beers/217121-pasatiempo-pale-ale
+https://www.beermenus.com/beers/11528-angry-orchard-crisp-apple-cider

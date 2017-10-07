@@ -64,7 +64,7 @@ class WhatsOnTap::CLI
     beer = gets.strip.to_i - 1
     WhatsOnTap::Scraper.get_beer_data_page(beer)
     WhatsOnTap::Scraper.scrape_individual_beer_data
-    binding.pry
+    
 
     puts ""
   end

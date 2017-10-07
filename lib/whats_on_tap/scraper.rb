@@ -61,7 +61,10 @@ class WhatsOnTap::Scraper
   def self.scrape_individual_beer_data
       brewery = self.beer_page.css("div.pure-f-body a").text #good
       brewery_location = self.beer_page.css("p.mt-tiny.mb-0").text #good
-      type_and_abv = self.beer_page.css("span.pure-icon-info p").text #not good
+      type_and_abv = self.beer_page.css("li.caption.lead-by-icon p")[1].text.gsub("\n","").strip.split("·")
+      type = type_and_abv[0].strip
+      abv = type_and_abv[1].strip
+
       notes = self.beer_page.css("div.caption p")[0].text #good
       description = self.beer_page.css("div.caption.beer-desc p").text #good
       binding.pry
