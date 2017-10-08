@@ -62,12 +62,40 @@ class WhatsOnTap::CLI
 
 
     beer = gets.strip.to_i - 1
+
     WhatsOnTap::Scraper.get_beer_data_page(beer)
-    WhatsOnTap::Scraper.scrape_individual_beer_data
-    
+    beer_attribute_array = WhatsOnTap::Scraper.scrape_individual_beer_data
+    chosen_beer_object = WhatsOnTap::Beer.all[beer]
+      # if i == beer
+        chosen_beer_object.brewery = beer_attribute_array[0]
+        chosen_beer_object.brewery_location = beer_attribute_array[1]
+        chosen_beer_object.type = beer_attribute_array[2]
+        chosen_beer_object.abv = beer_attribute_array[3]
+        chosen_beer_object.notes = beer_attribute_array[4]
+        chosen_beer_object.description = beer_attribute_array[5]
+      # end
+
+      puts ""
+      puts "Brewery: #{chosen_beer_object.brewery}"
+      puts "Brewery Location: #{chosen_beer_object.brewery_location}"
+      puts "Type: #{chosen_beer_object.type}"
+      puts "ABV: #{chosen_beer_object.abv}"
+      puts "Notes: #{chosen_beer_object.notes}"
+      puts "Description: #{chosen_beer_object.description}"
+    # binding.pry
+
+
+
+
 
     puts ""
+    # binding.pry
+    #puts_beer_data
   end
+
+  # def puts_beer_data
+  #
+  # end
 
   def goodbye
     puts ""

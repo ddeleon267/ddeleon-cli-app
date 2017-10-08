@@ -66,8 +66,12 @@ class WhatsOnTap::Scraper
       abv = type_and_abv[1].strip
 
       notes = self.beer_page.css("div.caption p")[0].text #good
-      description = self.beer_page.css("div.caption.beer-desc p").text #good
-      binding.pry
+      description = self.beer_page.css("div.caption.beer-desc p").text
+
+     [brewery, brewery_location, type, abv, notes, description]
+
+
+
   end
 
 end

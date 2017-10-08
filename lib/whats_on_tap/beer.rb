@@ -4,15 +4,16 @@ class WhatsOnTap::Beer
   attr_accessor :name, :brewery, :brewery_location, :type, :abv,
   :notes, :description
 
-  @@beers = []
+  @@all = []
 
   def initialize(name)
     @name = name
-    @@beers << self
+    @@all << self
   end
 
   def self.all
     @@all
   end
+
 
 end
