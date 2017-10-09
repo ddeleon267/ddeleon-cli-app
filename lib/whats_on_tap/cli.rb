@@ -9,12 +9,12 @@ class WhatsOnTap::CLI
   end
 
   def welcome
-    puts "Welcome to Whats On Tap? !"
+    puts "Welcome to What's On Tap!"
     puts ""
   end
 
   def list_locations
-    puts "Please enter your city to find the closest places offering craft brews on tap."
+    puts "Please enter your city to find the closest places offering craft beers on tap."
     puts ""
     city = gets.strip
     WhatsOnTap::Scraper.get_beer_menu_page(city)
@@ -27,8 +27,8 @@ class WhatsOnTap::CLI
 
     WhatsOnTap::Scraper.scrape_locations.each.with_index(1) do |location,i|
       new_location = WhatsOnTap::Location.new(location)
-      new_location.establishment_type = WhatsOnTap::Scraper.scrape_establishment_type[i]
-      new_location.num_beers_on_tap = WhatsOnTap::Scraper.scrape_num_beers_on_tap[i]
+      new_location.establishment_type = WhatsOnTap::Scraper.scrape_establishment_type[i-1]
+      new_location.num_beers_on_tap = WhatsOnTap::Scraper.scrape_num_beers_on_tap[i-1]
 
       puts "#{i}. #{new_location.name}  (#{new_location.establishment_type})   --->   #{new_location.num_beers_on_tap}"
     end
@@ -36,7 +36,7 @@ class WhatsOnTap::CLI
 
   def list_beers
     puts ""
-    puts "Enter the number of the location for which you'd like to see the beer menu, or type 'list' to see the list of locations again, or type 'exit'."
+    puts "Enter the number of the location for which you'd like to see the beer menu, or type 'exit'."
     puts ""
 
     place = gets.strip.to_i - 1
@@ -68,8 +68,7 @@ class WhatsOnTap::CLI
       chosen_beer_object.brewery_location = beer_attribute_array[1]
       chosen_beer_object.type = beer_attribute_array[2]
       chosen_beer_object.abv = beer_attribute_array[3]
-      chosen_beer_object.notes = beer_attribute_array[4]
-      chosen_beer_object.description = beer_attribute_array[5]
+      chosen_beer_object.full_description = beer_attribute_array[4]
 
     puts ""
     puts "#{chosen_beer_object.name}"
@@ -77,8 +76,7 @@ class WhatsOnTap::CLI
     puts "Brewery Location: #{chosen_beer_object.brewery_location}"
     puts "Type: #{chosen_beer_object.type}"
     puts "ABV: #{chosen_beer_object.abv}"
-    puts "Notes: #{chosen_beer_object.notes}"
-    puts "Description: #{chosen_beer_object.description}"
+    puts "Description: #{chosen_beer_object.full_description}"
     puts ""
   end
 

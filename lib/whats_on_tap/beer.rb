@@ -1,5 +1,5 @@
 class WhatsOnTap::Beer
-  attr_accessor :name, :brewery, :brewery_location, :type, :abv, :notes, :description
+  attr_accessor :name, :brewery, :brewery_location, :type, :abv, :notes, :full_description
 
   @@all = []
 
