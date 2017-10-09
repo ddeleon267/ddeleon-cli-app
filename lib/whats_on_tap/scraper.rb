@@ -36,7 +36,6 @@ class WhatsOnTap::Scraper
 
   def self.scrape_beers
     beer_list = self.beers_page.css("h3.mb-0.text-normal a").take(10).map {|p| p.text}
-    # binding.pry
   end
 
   def self.beers_page
@@ -49,7 +48,6 @@ class WhatsOnTap::Scraper
   end
 
   def self.get_beer_data_page(beer)
-    #maybe the problem is here???
     modified_beer_url = "https://www.beermenus.com#{self.scrape_beer_url[beer]}"
     @@beer_page = Nokogiri::HTML(open(modified_beer_url))
   end
@@ -69,9 +67,6 @@ class WhatsOnTap::Scraper
       description = self.beer_page.css("div.caption.beer-desc p").text
 
      [brewery, brewery_location, type, abv, notes, description]
-
-
-
   end
 
 end

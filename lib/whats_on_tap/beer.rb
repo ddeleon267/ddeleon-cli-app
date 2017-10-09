@@ -1,8 +1,5 @@
-#might not need to require anything here?
-
 class WhatsOnTap::Beer
-  attr_accessor :name, :brewery, :brewery_location, :type, :abv,
-  :notes, :description
+  attr_accessor :name, :brewery, :brewery_location, :type, :abv, :notes, :description
 
   @@all = []
 
@@ -14,6 +11,5 @@ class WhatsOnTap::Beer
   def self.all
     @@all
   end
-
 
 end
