@@ -23,6 +23,9 @@ class WhatsOnTap::CLI
   end
 
   def make_locations
+    #this is for trying to refactor scraper
+    #WhatsOnTap::Scraper.scrape_locations_refactored
+
     WhatsOnTap::Scraper.scrape_location_url
 
     WhatsOnTap::Scraper.scrape_locations.each.with_index(1) do |location,i|
