@@ -3,7 +3,6 @@ class WhatsOnTap::CLI
   def call
     welcome
     get_locations
-
     list_beers
     explore_beer
     goodbye
@@ -15,29 +14,20 @@ class WhatsOnTap::CLI
   end
 
   def get_locations
-    #asks for city input, gets, calls method to access page, calls #make_locations
     puts "Please enter your city to find the closest places offering craft beers on tap."
     puts ""
     city = gets.strip
-    WhatsOnTap::Scraper.get_beer_menu_page(city) #takes in data to modify url based on the city
-    #input, then opens/accesses modified url
+    WhatsOnTap::Scraper.get_beer_menu_page(city)
     puts ""
-    WhatsOnTap::Scraper.make_locations  #see below
+    WhatsOnTap::Scraper.make_locations  
     list_locations
   end
 
-####################################################################################
-
-
-
-  ####################################################################################
   def list_locations
     WhatsOnTap::Location.all.each.with_index(1) do |location_object, i|
       puts "#{i}. #{location_object.name}  #{location_object.establishment_type}   --->   #{location_object.num_beers_on_tap}"
     end
-
   end
-
 
   def list_beers
     puts ""
