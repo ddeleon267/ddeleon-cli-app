@@ -9,6 +9,26 @@ class WhatsOnTap::Scraper
     @@page
   end
 
+  def self.make_locations
+    # binding.pry
+    self.scrape_location_url #calls scraper method, gets url associated
+    #with specific locations, will need later
+
+    self.scrape_locations.each.with_index(1) do |location,i|
+      #calls scraper method,scrapes page of locations for location names and instantiantes new location objects
+      #based on that
+
+      new_location = WhatsOnTap::Location.new(location)
+
+      #scrapes for establishment_type and number of beers on tap (all on same page). Sets
+      #these as properties for related Location objects puts out formatted list
+      new_location.establishment_type = self.scrape_establishment_type[i-1]
+      new_location.num_beers_on_tap = self.scrape_num_beers_on_tap[i-1]
+
+
+    end
+  end
+
   ##trying something --> need to refactor 4 methods below
   ##this may break everything
   # def self.scrape_locations_refactored

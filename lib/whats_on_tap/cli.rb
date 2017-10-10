@@ -1,8 +1,8 @@
 class WhatsOnTap::CLI
 
   def call
-    welcome #greets user
-    list_locations #asks for city input, gets, calls method to access page, calls #make_locations
+    welcome
+    get_locations
 
     list_beers
     explore_beer
@@ -14,41 +14,30 @@ class WhatsOnTap::CLI
     puts ""
   end
 
-  def list_locations
+  def get_locations
+    #asks for city input, gets, calls method to access page, calls #make_locations
     puts "Please enter your city to find the closest places offering craft beers on tap."
     puts ""
     city = gets.strip
     WhatsOnTap::Scraper.get_beer_menu_page(city) #takes in data to modify url based on the city
     #input, then opens/accesses modified url
     puts ""
-    make_locations  #see below
+    WhatsOnTap::Scraper.make_locations  #see below
+    list_locations
   end
 
 ####################################################################################
 
-  def make_locations
-    #this commented-out method below is for pry, trying to refactor scraper
-    # WhatsOnTap::Scraper.scrape_locations_refactored
 
-    WhatsOnTap::Scraper.scrape_location_url #calls scraper method, gets url associated
-    #with specific locations, will need later
-
-    WhatsOnTap::Scraper.scrape_locations.each.with_index(1) do |location,i|
-      #calls scraper method,scrapes page of locations for location names and instantiantes new location objects
-      #based on that
-
-      new_location = WhatsOnTap::Location.new(location)
-
-      #scrapes for establishment_type and number of beers on tap (all on same page). Sets
-      #these as properties for related Location objects puts out formatted list
-      new_location.establishment_type = WhatsOnTap::Scraper.scrape_establishment_type[i-1]
-      new_location.num_beers_on_tap = WhatsOnTap::Scraper.scrape_num_beers_on_tap[i-1]
-
-      puts "#{i}. #{new_location.name}  (#{new_location.establishment_type})   --->   #{new_location.num_beers_on_tap}"
-    end
-  end
 
   ####################################################################################
+  def list_locations
+    WhatsOnTap::Location.all.each.with_index(1) do |location_object, i|
+      puts "#{i}. #{location_object.name}  #{location_object.establishment_type}   --->   #{location_object.num_beers_on_tap}"
+    end
+
+  end
+
 
   def list_beers
     puts ""
