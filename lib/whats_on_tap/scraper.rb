@@ -12,18 +12,17 @@ class WhatsOnTap::Scraper
   ##trying something --> need to refactor 4 methods below
   ##this may break everything
   # def self.scrape_locations_refactored
-  #   something = self.page.search("div.pure-u-1").each do |location_div|
-  #     location_div
-  #   #   location = WhatsOnTap::Location.new
-  #   #   location.name = location_div.search("h3.mb-0.text-normal a").text
-  #   #   location.establishment_type = location_div.search("h3.mb-0.text-normal span").text.gsub("· ", "")
-  #   #   location.num_beers_on_tap = location_div.search("p.caption.text-gray.mb-small").text
-  #   #   location.url = location_div.search("h3.mb-0.text-normal a").attr("href")
-  #   #
-  #   something
-  #     binding.pry
+  #   self.page.search("div.pure-u-1").each do |location_div|
+  #     location = WhatsOnTap::Location.new
+  #     location.name = location_div.search("h3.mb-0.text-normal a").text
+  #     location.establishment_type = location_div.search("h3.mb-0.text-normal span").text.gsub("· ", "")
+  #     location.num_beers_on_tap = location_div.search("p.caption.text-gray.mb-small").text
+  #     location.url = location_div.search("h3.mb-0.text-normal a").attr("href")
+  #
+  #   # something
+  #     # binding.pry
   #   end
-  #   # binding.pry
+  #   binding.pry
   # end
   #scraping for locations for ^^^
   def self.scrape_locations

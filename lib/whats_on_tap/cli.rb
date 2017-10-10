@@ -1,8 +1,9 @@
 class WhatsOnTap::CLI
 
   def call
-    welcome
-    list_locations
+    welcome #greets user
+    list_locations #asks for city input, gets, calls method to access page, calls #make_locations
+
     list_beers
     explore_beer
     goodbye
@@ -17,25 +18,37 @@ class WhatsOnTap::CLI
     puts "Please enter your city to find the closest places offering craft beers on tap."
     puts ""
     city = gets.strip
-    WhatsOnTap::Scraper.get_beer_menu_page(city)
+    WhatsOnTap::Scraper.get_beer_menu_page(city) #takes in data to modify url based on the city
+    #input, then opens/accesses modified url
     puts ""
-    make_locations
+    make_locations  #see below
   end
 
-  def make_locations
-    #this is for trying to refactor scraper
-    #WhatsOnTap::Scraper.scrape_locations_refactored
+####################################################################################
 
-    WhatsOnTap::Scraper.scrape_location_url
+  def make_locations
+    #this commented-out method below is for pry, trying to refactor scraper
+    # WhatsOnTap::Scraper.scrape_locations_refactored
+
+    WhatsOnTap::Scraper.scrape_location_url #calls scraper method, gets url associated
+    #with specific locations, will need later
 
     WhatsOnTap::Scraper.scrape_locations.each.with_index(1) do |location,i|
+      #calls scraper method,scrapes page of locations for location names and instantiantes new location objects
+      #based on that
+
       new_location = WhatsOnTap::Location.new(location)
+
+      #scrapes for establishment_type and number of beers on tap (all on same page). Sets
+      #these as properties for related Location objects puts out formatted list
       new_location.establishment_type = WhatsOnTap::Scraper.scrape_establishment_type[i-1]
       new_location.num_beers_on_tap = WhatsOnTap::Scraper.scrape_num_beers_on_tap[i-1]
 
       puts "#{i}. #{new_location.name}  (#{new_location.establishment_type})   --->   #{new_location.num_beers_on_tap}"
     end
   end
+
+  ####################################################################################
 
   def list_beers
     puts ""
