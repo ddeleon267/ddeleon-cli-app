@@ -3,8 +3,10 @@ class WhatsOnTap::CLI
   def call
     welcome
     get_locations
+    list_locations
+    get_beers
     list_beers
-    explore_beer
+    get_a_beer
     goodbye
   end
 
@@ -17,10 +19,9 @@ class WhatsOnTap::CLI
     puts "Please enter your city to find the closest places offering craft beers on tap."
     puts ""
     city = gets.strip
-    WhatsOnTap::Scraper.get_beer_menu_page(city)
+    WhatsOnTap::Scraper.get_beer_menu_site(city)
     puts ""
-    WhatsOnTap::Scraper.make_locations  
-    list_locations
+    WhatsOnTap::Scraper.make_locations
   end
 
   def list_locations
@@ -29,7 +30,7 @@ class WhatsOnTap::CLI
     end
   end
 
-  def list_beers
+  def get_beers
     puts ""
     puts "Enter the number of the location for which you'd like to see the beer menu, or type 'exit'."
     puts ""
@@ -38,42 +39,49 @@ class WhatsOnTap::CLI
     WhatsOnTap::Scraper.get_beer_list_page(place)
 
     puts ""
-    make_beers
+    WhatsOnTap::Scraper.make_beers
   end
 
-  def make_beers
-    WhatsOnTap::Scraper.scrape_beers.each.with_index(1) do |beer,i|
-      new_beer = WhatsOnTap::Beer.new(beer)
-      puts "#{i}. #{new_beer.name}"
+  def list_beers
+    WhatsOnTap::Beer.all.each.with_index(1) do |beer_object, i|
+      puts "#{i}. #{beer_object.name}"
     end
   end
 
-  def explore_beer
+  def get_a_beer
     puts ""
     puts "Enter the number of a beer you'd like to learn more about, or type 'list' to see the list of locations again, or type 'exit'."
     puts ""
 
+    beer_number = gets.strip.to_i - 1
 
-    beer = gets.strip.to_i - 1
+    WhatsOnTap::Scraper.get_beer_info_page(beer_number)
+    get_and_set_beer_attributes(beer_number)
+  end
 
-    WhatsOnTap::Scraper.get_beer_data_page(beer)
+########################## need to keep working on this ##########################
+  def get_and_set_beer_attributes(beer_number)
+    #getting
     beer_attribute_array = WhatsOnTap::Scraper.scrape_individual_beer_data
-    chosen_beer_object = WhatsOnTap::Beer.all[beer]
-      chosen_beer_object.brewery = beer_attribute_array[0]
-      chosen_beer_object.brewery_location = beer_attribute_array[1]
-      chosen_beer_object.type = beer_attribute_array[2]
-      chosen_beer_object.abv = beer_attribute_array[3]
-      chosen_beer_object.full_description = beer_attribute_array[4]
+
+    #setting   ----> this is not ideal... what else to do???
+    beer_object = WhatsOnTap::Beer.all[beer_number]
+    beer_object.brewery = beer_attribute_array[0]
+    beer_object.brewery_location = beer_attribute_array[1]
+    beer_object.type = beer_attribute_array[2]
+    beer_object.abv = beer_attribute_array[3]
+    beer_object.full_description = beer_attribute_array[4]
 
     puts ""
-    puts "#{chosen_beer_object.name}"
-    puts "Brewery: #{chosen_beer_object.brewery}"
-    puts "Brewery Location: #{chosen_beer_object.brewery_location}"
-    puts "Type: #{chosen_beer_object.type}"
-    puts "ABV: #{chosen_beer_object.abv}"
-    puts "Description: #{chosen_beer_object.full_description}"
+    puts "#{beer_object.name}"
+    puts "Brewery: #{beer_object.brewery}"
+    puts "Brewery Location: #{beer_object.brewery_location}"
+    puts "Type: #{beer_object.type}"
+    puts "ABV: #{beer_object.abv}"
+    puts "Description: #{beer_object.full_description}"
     puts ""
   end
+  ################################################################################
 
   def goodbye
     puts ""
