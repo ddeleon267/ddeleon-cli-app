@@ -14,7 +14,6 @@ class WhatsOnTap::Beer
 
   def self.reset
     @@all.clear
-
   end
 
 end

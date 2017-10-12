@@ -50,7 +50,8 @@ class WhatsOnTap::Scraper
 
   #########################################################################################
   def self.make_beers
-    WhatsOnTap::Beer.reset
+    WhatsOnTap::Beer.reset##this is what enoch asked for, to keep from having
+    #duplicates
     self.scrape_beer_names.each do |beer_name|
       WhatsOnTap::Beer.new(beer_name)
     end

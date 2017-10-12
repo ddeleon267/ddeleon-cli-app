@@ -1,5 +1,13 @@
 class WhatsOnTap::CLI
 
+#concerns for 10/12
+##  enoch's suggestion -- > preventing duplicates
+##  possibly refactoring last two methods in scraper
+##  general feedback
+
+## maybe refactoring the "puts" part in first CLI get_a_beer_and_list_details condition
+##  finding a way to make  CLI #get_locations more controlled while still allowing city string input
+
   def call
     welcome
     get_locations
@@ -140,7 +148,7 @@ class WhatsOnTap::CLI
     puts "Until next time!"
   end
 
-  #######################  helper methods for cli ##########################
+  ###########################  helper methods #################################
   def restart_from_location_list
     list_locations
     get_beers
