@@ -35,12 +35,10 @@ class WhatsOnTap::CLI
 
   def get_beers
     puts ""
-    puts "Enter the number of the location for which you'd like to see the beer menu, or type 'exit'."
+    puts "Enter the number of the location for which you'd like to see the beer menu."
     puts "You can also type 'back' to try a new city, or type 'exit' to exit"
     puts ""
 
-    #note... if user enters a city at this point, will give results that are not desired
-    #how to prevent this?
     input = gets.strip
      if input.to_i > 0 && input.to_i < 6
        location_number = input.to_i - 1
@@ -70,25 +68,48 @@ class WhatsOnTap::CLI
 
   def get_a_beer_and_list_details
     puts ""
-    puts "Enter the number of a beer you'd like to learn more about, or type 'list' to see the list of locations again, or type 'exit'."
+    puts "BLOOP BLOOP"
+    puts "Enter the number of a beer you'd like to learn more about. You can also type 'list' to see the list of locations again, type 'back' to start over, or type 'exit' to exit."
     puts ""
 
-    beer_number = gets.strip.to_i - 1
+    beer_input = gets.strip
+    if beer_input.to_i > 0 && beer_input.to_i <10
+      beer_number = beer_input.to_i - 1
+      WhatsOnTap::Scraper.get_beer_info_page(beer_number)
 
-    WhatsOnTap::Scraper.get_beer_info_page(beer_number)
+      WhatsOnTap::Scraper.get_and_set_beer_attributes(beer_number)
 
-    WhatsOnTap::Scraper.get_and_set_beer_attributes(beer_number)
-
-    beer_object = WhatsOnTap::Beer.all[beer_number]
-    puts ""
-    puts "#{beer_object.name}"
-    puts "Brewery: #{beer_object.brewery}"
-    puts "Brewery Location: #{beer_object.brewery_location}"
-    puts "Type: #{beer_object.type}"
-    puts "ABV: #{beer_object.abv}"
-    puts "Description: #{beer_object.full_description}"
-    puts ""
-  end
+      beer_object = WhatsOnTap::Beer.all[beer_number]
+      puts ""
+      puts "#{beer_object.name}"
+      puts "Brewery: #{beer_object.brewery}"
+      puts "Brewery Location: #{beer_object.brewery_location}"
+      puts "Type: #{beer_object.type}"
+      puts "ABV: #{beer_object.abv}"
+      puts "Description: #{beer_object.full_description}"
+      puts ""
+    elsif beer_input.downcase == "exit"
+      exit
+    elsif beer_input.downcase == "back"
+      puts ""
+      input = nil #not sure if I need this??
+      get_locations
+      list_locations
+      get_beers
+      list_beers
+      get_a_beer_and_list_details
+    elsif beer_input.downcase == "list"
+      list_locations
+      get_beers
+      list_beers
+      get_a_beer_and_list_details
+    else
+      puts ""
+      puts "Please try again."
+      puts ""
+      input = nil #not sure if I need this??
+    end
+  end #end of get_a_beer_and_list_details
 
   def goodbye
     puts ""
