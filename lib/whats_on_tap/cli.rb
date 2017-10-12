@@ -7,6 +7,7 @@ class WhatsOnTap::CLI
     get_beers
     list_beers
     get_a_beer_and_list_details
+    restart_or_exit
     goodbye
   end
 
@@ -17,7 +18,6 @@ class WhatsOnTap::CLI
   end
 
   def get_locations
-
     puts "Please enter your city to find places offering craft beers on tap near you."
     puts ""
     city = gets.strip
@@ -28,7 +28,6 @@ class WhatsOnTap::CLI
 
   def list_locations
     WhatsOnTap::Location.all.each.with_index(1) do |location_object, i|
-      #would like to make this display in a nicer way
       puts "#{i}. #{location_object.name}  #{location_object.establishment_type}   --->   #{location_object.num_beers_on_tap}"
     end
   end
@@ -49,14 +48,14 @@ class WhatsOnTap::CLI
        exit
      elsif input.downcase == "back"
        puts ""
-       input = nil
-       call
+       get_locations
+       list_locations
+       get_beers
      else
        puts ""
        puts "Please try again."
        puts ""
-       input = nil
-       list_locations
+       get_beers
      end
   end
 
@@ -68,7 +67,6 @@ class WhatsOnTap::CLI
 
   def get_a_beer_and_list_details
     puts ""
-    puts "BLOOP BLOOP"
     puts "Enter the number of a beer you'd like to learn more about. You can also type 'list' to see the list of locations again, type 'back' to start over, or type 'exit' to exit."
     puts ""
 
@@ -92,7 +90,6 @@ class WhatsOnTap::CLI
       exit
     elsif beer_input.downcase == "back"
       puts ""
-      input = nil #not sure if I need this??
       get_locations
       list_locations
       get_beers
@@ -107,9 +104,50 @@ class WhatsOnTap::CLI
       puts ""
       puts "Please try again."
       puts ""
-      input = nil #not sure if I need this??
+      get_a_beer_and_list_details
     end
   end #end of get_a_beer_and_list_details
+
+  def restart_or_exit
+    puts "What would you like to do next? Choose one of the following:"
+    puts ""
+    puts "     Enter 'beers' to see the  beer list for this location again."
+    puts "     Enter 'list' to see the previous list of locations for this city."
+    puts "     Enter 'restart' to start over with a different city."
+    puts "     Enter 'exit' to exit."
+    puts ""
+
+    input = gets.strip.downcase
+    case input
+    when "beers"
+      puts ""
+      list_beers
+      get_a_beer_and_list_details
+      restart_or_exit
+    when "list"
+      puts ""
+      list_locations
+      get_beers
+      list_beers
+      get_a_beer_and_list_details
+      restart_or_exit
+    when "restart"
+      puts ""
+      get_locations
+      list_locations
+      get_beers
+      list_beers
+      get_a_beer_and_list_details
+      restart_or_exit
+    when "exit"
+      exit
+    else
+      puts ""
+      puts "Please enter a valid input."
+      puts ""
+      restart_or_exit
+    end
+  end
 
   def goodbye
     puts ""

@@ -63,3 +63,6 @@ can successfully scrape for the urls e.g. /places/3120-chicago-street-pub, need 
 
 https://www.beermenus.com/beers/217121-pasatiempo-pale-ale
 https://www.beermenus.com/beers/11528-angry-orchard-crisp-apple-cider
+
+10/12
+worked on refactoring some things since working with enoch, also added if statements to help control cli. some unexpected results...
