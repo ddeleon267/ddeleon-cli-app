@@ -12,4 +12,9 @@ class WhatsOnTap::Beer
     @@all.uniq
   end
 
+  def self.reset
+    @@all.clear
+
+  end
+
 end

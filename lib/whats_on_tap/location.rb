@@ -14,4 +14,7 @@ class WhatsOnTap::Location
     @@all.uniq
   end
 
+  def self.reset
+    @@all.clear
+  end
 end

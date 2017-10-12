@@ -10,6 +10,8 @@ class WhatsOnTap::Scraper
 
   def self.make_locations
     self.scrape_location_urls
+    WhatsOnTap::Location.reset ##this is what enoch asked for, to keep from having
+    #duplicates
     self.scrape_location_names.each.with_index do |location_name,i|
       location_object = WhatsOnTap::Location.new(location_name)
       location_object.establishment_type = self.scrape_establishment_types[i]
@@ -48,6 +50,7 @@ class WhatsOnTap::Scraper
 
   #########################################################################################
   def self.make_beers
+    WhatsOnTap::Beer.reset ##
     self.scrape_beer_names.each do |beer_name|
       WhatsOnTap::Beer.new(beer_name)
     end
@@ -103,11 +106,9 @@ class WhatsOnTap::Scraper
 
       notes = self.beer_page.css("div.caption p")[0].text
       description = self.beer_page.css("div.caption.beer-desc p").text
-
       full_description = notes+description
 
      [brewery, brewery_location, type, abv, full_description]
-
   end
 
 end
