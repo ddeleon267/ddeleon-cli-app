@@ -91,15 +91,9 @@ class WhatsOnTap::CLI
     elsif beer_input.downcase == "back"
       puts ""
       get_locations
-      list_locations
-      get_beers
-      list_beers
-      get_a_beer_and_list_details
+      restart_from_location_list
     elsif beer_input.downcase == "list"
-      list_locations
-      get_beers
-      list_beers
-      get_a_beer_and_list_details
+      restart_from_location_list
     else
       puts ""
       puts "Please try again."
@@ -126,20 +120,12 @@ class WhatsOnTap::CLI
       restart_or_exit
     when "list"
       puts ""
-      list_locations
-      get_beers
-      list_beers
-      get_a_beer_and_list_details
-      restart_or_exit
+      restart_from_city
     when "restart"
       puts ""
-      get_locations
-      list_locations
-      get_beers
-      list_beers
-      get_a_beer_and_list_details
-      restart_or_exit
+      restart_after_welcome
     when "exit"
+      goodbye
       exit
     else
       puts ""
@@ -152,6 +138,32 @@ class WhatsOnTap::CLI
   def goodbye
     puts ""
     puts "Until next time!"
+  end
+
+  #######################  helper methods for cli ##########################
+  def restart_from_location_list
+    list_locations
+    get_beers
+    list_beers
+    get_a_beer_and_list_details
+  end
+
+  def restart_from_city
+    list_locations
+    get_beers
+    list_beers
+    get_a_beer_and_list_details
+    restart_or_exit
+  end
+
+  def restart_after_welcome
+    get_locations
+    list_locations
+    get_beers
+    list_beers
+    get_a_beer_and_list_details
+    restart_or_exit
+    goodbye
   end
 
 end
