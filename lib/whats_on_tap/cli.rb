@@ -32,9 +32,9 @@ class WhatsOnTap::CLI
 
   def list_locations
     WhatsOnTap::Location.all.each.with_index(1) do |location_object, i|
-      puts " #{i}. #{location_object.name}"
-      puts "    (#{location_object.establishment_type})" unless location_object.establishment_type == nil
-      puts "    #{location_object.num_beers_on_tap}" unless location_object.num_beers_on_tap == nil
+      print " #{i}. #{location_object.name}"
+      print " (#{location_object.establishment_type})" unless location_object.establishment_type == nil
+      puts " ---> #{location_object.num_beers_on_tap}" unless location_object.num_beers_on_tap == nil
       puts ""
     end
   end
