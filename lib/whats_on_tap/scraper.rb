@@ -10,8 +10,7 @@ class WhatsOnTap::Scraper
 
   def self.make_locations
     self.scrape_location_urls
-    WhatsOnTap::Location.reset ##this is what enoch asked for, to keep from having
-    #duplicates
+    WhatsOnTap::Location.reset
     self.scrape_location_names.each.with_index do |location_name,i|
       location_object = WhatsOnTap::Location.new(location_name)
       location_object.establishment_type = self.scrape_establishment_types[i]
@@ -50,16 +49,21 @@ class WhatsOnTap::Scraper
 
   #########################################################################################
   def self.make_beers
-    WhatsOnTap::Beer.reset##this is what enoch asked for, to keep from having
-    #duplicates
+    WhatsOnTap::Beer.reset
     self.scrape_beer_names.each do |beer_name|
-      WhatsOnTap::Beer.new(beer_name)
+      WhatsOnTap::Beer.new(beer_name) unless beer_name == ""
     end
   end
 
   #helper methods for #make_beers
   def self.scrape_beer_names
-    self.beer_list_page.css("h3.mb-0.text-normal a").take(10).map {|p| p.text}
+    #occasionally there is limited beer data AND it is in a different location on page... would
+    #need to account for that by scraping differently of giving "no info"
+    # if self.beer_list_page.css("h3.mb-0.text-normal a") == []
+    #   Array.new(10, "")
+    # else
+      self.beer_list_page.css("h3.mb-0.text-normal a").take(10).map {|p| p.text}
+    # end
   end
 #######################################################################################
 
@@ -67,6 +71,7 @@ class WhatsOnTap::Scraper
   def self.get_beer_info_page(beer_number)
     modified_page_url = "https://www.beermenus.com#{self.scrape_beer_urls[beer_number]}"
     @@beer_page = Nokogiri::HTML(open(modified_page_url))
+
   end
 
   def self.beer_page
@@ -80,36 +85,46 @@ class WhatsOnTap::Scraper
 
 
 #######################################################################################
-
-  ##need to work on this
-
   def self.get_and_set_beer_attributes(beer_number)
-    #getting
     beer_attribute_array = self.scrape_individual_beer_data
-
-    #setting   ----> this is not ideal... what else to do???
     beer_object = WhatsOnTap::Beer.all[beer_number]
+
     beer_object.brewery = beer_attribute_array[0]
     beer_object.brewery_location = beer_attribute_array[1]
     beer_object.type = beer_attribute_array[2]
     beer_object.abv = beer_attribute_array[3]
     beer_object.full_description = beer_attribute_array[4]
-
   end
 
-  #and this?
   def self.scrape_individual_beer_data
-      brewery = self.beer_page.css("div.pure-f-body a").text
-      brewery_location = self.beer_page.css("p.mt-tiny.mb-0").text
-      type_and_abv = self.beer_page.css("li.caption.lead-by-icon p")[1].text.gsub("\n","").strip.split("·")
-      type = type_and_abv[0].strip
-      abv = type_and_abv[1].strip
+    brewery = self.beer_page.css("div.pure-f-body a").text
+    brewery_location = self.beer_page.css("p.mt-tiny.mb-0").text
+    # binding.pry
+    if self.beer_page.css("li.caption.lead-by-icon p") == nil || self.beer_page.css("li.caption.lead-by-icon p") == []
+      type_and_abv = ""
+    else
+      type_and_abv = self.beer_page.css("li.caption.lead-by-icon p").text.gsub("\n","").strip.split("·")
+    end
 
-      notes = self.beer_page.css("div.caption p")[0].text
-      description = self.beer_page.css("div.caption.beer-desc p").text
-      full_description = notes+description
+    type = type_and_abv[0].strip unless type_and_abv[0] == nil
+    abv = type_and_abv[1].strip unless type_and_abv[1] == nil
 
-     [brewery, brewery_location, type, abv, full_description]
-  end
+    notes = self.beer_page.css("div.caption p")[0].text
+
+    description = self.beer_page.css("div.caption.beer-desc p").text
+
+    full_description = notes+description
+
+    beer_data = [brewery, brewery_location, type, abv, full_description]
+
+     #this is ugly; can I make this nicer?
+    beer_data.map do |attribute|
+       if attribute == nil || attribute == ""
+         attribute = "No information available"
+       else
+         attribute = attribute
+       end
+     end
+  end #end method
 
 end
