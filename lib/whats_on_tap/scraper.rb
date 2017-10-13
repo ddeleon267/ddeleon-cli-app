@@ -10,7 +10,7 @@ class WhatsOnTap::Scraper
 
   def self.make_locations
     self.scrape_location_urls
-    WhatsOnTap::Location.reset
+    WhatsOnTap::Location.reset #prevents duplicate objects & unexpected results if user goes back and tries multiple cities
     self.scrape_location_names.each.with_index do |location_name,i|
       location_object = WhatsOnTap::Location.new(location_name)
       location_object.establishment_type = self.scrape_establishment_types[i]
@@ -49,21 +49,15 @@ class WhatsOnTap::Scraper
 
   #########################################################################################
   def self.make_beers
-    WhatsOnTap::Beer.reset
+    WhatsOnTap::Beer.reset #prevents duplicate objects & unexpected results
     self.scrape_beer_names.each do |beer_name|
       WhatsOnTap::Beer.new(beer_name) unless beer_name == ""
     end
   end
 
-  #helper methods for #make_beers
+  #helper method for #make_beers
   def self.scrape_beer_names
-    #occasionally there is limited beer data AND it is in a different location on page... would
-    #need to account for that by scraping differently of giving "no info"
-    # if self.beer_list_page.css("h3.mb-0.text-normal a") == []
-    #   Array.new(10, "")
-    # else
       self.beer_list_page.css("h3.mb-0.text-normal a").take(10).map {|p| p.text}
-    # end
   end
 #######################################################################################
 
@@ -78,7 +72,7 @@ class WhatsOnTap::Scraper
     @@beer_page
   end
 
-# helper methods for #get_beer_info_page
+# helper method for #get_beer_info_page
   def self.scrape_beer_urls
     self.beer_list_page.css("h3.mb-0.text-normal a").take(5).map { |link| link['href']}
   end
@@ -87,7 +81,7 @@ class WhatsOnTap::Scraper
 #######################################################################################
   def self.get_and_set_beer_attributes(beer_number)
     beer_attribute_array = self.scrape_individual_beer_data
-    beer_object = WhatsOnTap::Beer.all[beer_number]
+    beer_object = WhatsOnTap::Beer.all[beer_number]  #accesses beer object (chosen by user) adds additional attributes
 
     beer_object.brewery = beer_attribute_array[0]
     beer_object.brewery_location = beer_attribute_array[1]
@@ -97,25 +91,21 @@ class WhatsOnTap::Scraper
   end
 
   def self.scrape_individual_beer_data
+    #there are a ton of conditionals and weird things here, because plenty of the beers are missing some or all
+    #of this data, which would otherwise easily cause the app the break
     brewery = self.beer_page.css("div.pure-f-body a").text
     brewery_location = self.beer_page.css("p.mt-tiny.mb-0").text
-    # binding.pry
+
     if self.beer_page.css("li.caption.lead-by-icon p") == nil || self.beer_page.css("li.caption.lead-by-icon p") == []
       type_and_abv = ""
     else
       type_and_abv = self.beer_page.css("li.caption.lead-by-icon p").text.gsub("\n","").strip.split("·")
     end
-
     type = type_and_abv[0].strip unless type_and_abv[0] == nil
     abv = type_and_abv[1].strip unless type_and_abv[1] == nil
 
-
     notes = self.beer_page.css("div.caption p")[0].text unless self.beer_page.css("div.caption p")[0] == nil
-
-
     description = self.beer_page.css("div.caption.beer-desc p").text
-
-  
     if notes == nil
       full_description = description
     elsif description == nil
@@ -127,8 +117,6 @@ class WhatsOnTap::Scraper
     end
 
     beer_data = [brewery, brewery_location, type, abv, full_description]
-
-     #this is ugly; can I make this nicer?
     beer_data.map do |attribute|
        if attribute == nil || attribute == ""
          attribute = "No information available"
@@ -137,5 +125,4 @@ class WhatsOnTap::Scraper
        end
      end
   end #end method
-
 end

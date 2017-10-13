@@ -1,6 +1,5 @@
 class WhatsOnTap::Beer
   attr_accessor :name, :brewery, :brewery_location, :type, :abv, :notes, :full_description
-
   @@all = []
 
   def initialize(name)
@@ -15,5 +14,4 @@ class WhatsOnTap::Beer
   def self.reset
     @@all.clear
   end
-
 end

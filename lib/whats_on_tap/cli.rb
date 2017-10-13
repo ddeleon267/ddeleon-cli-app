@@ -1,10 +1,10 @@
 class WhatsOnTap::CLI
 
 #concerns for 10/13
-## maybe refactoring the "puts" part in first CLI get_a_beer_and_list_details condition
 ##  finding a way to make  CLI #get_locations more controlled while still allowing city string input
+##general feedback
 
-  def call
+  def call #this is long, but I do like that it gives a clear view of what's happening, so I chose not to refactor
     welcome
     get_locations
     list_locations
@@ -22,12 +22,12 @@ class WhatsOnTap::CLI
   end
 
   def get_locations
-    puts "Please enter your city to find places offering craft beers on tap near you."
+    puts "Please enter your city to find places offering craft beers on tap in your city."
     puts ""
     city = gets.strip
-    WhatsOnTap::Scraper.get_beer_menu_site(city)
+    WhatsOnTap::Scraper.get_beer_menu_site(city) #accesses site
     puts ""
-    WhatsOnTap::Scraper.make_locations
+    WhatsOnTap::Scraper.make_locations #scrapes for location data and creates location objects
   end
 
   def list_locations
@@ -46,12 +46,11 @@ class WhatsOnTap::CLI
     puts ""
 
     input = gets.strip
-
      if input.to_i > 0 && input.to_i < 6
        location_number = input.to_i - 1
-       WhatsOnTap::Scraper.get_beer_list_page(location_number)
+       WhatsOnTap::Scraper.get_beer_list_page(location_number) #access location website to scrape for beer list
        puts ""
-       WhatsOnTap::Scraper.make_beers
+       WhatsOnTap::Scraper.make_beers #scrape for beer list, instantiate beer objects
      elsif input.downcase == "exit"
        exit
      elsif input.downcase == "back"
@@ -69,9 +68,9 @@ class WhatsOnTap::CLI
 
   def list_beers
     if WhatsOnTap::Beer.all.empty?
-      puts "There are no beers to show for this location. Please try again."
+      puts "There is no individual beer data for this location. Please try again."
       puts ""
-      restart_from_location_list #it will behave unexpectedly during this call if input == 'list'
+      restart_from_location_list #
     else
       WhatsOnTap::Beer.all.each.with_index(1) do |beer_object, i|
         puts "#{i}. #{beer_object.name}"
@@ -80,20 +79,18 @@ class WhatsOnTap::CLI
   end
 
   def get_a_beer_and_list_details
-
     puts ""
     puts "Enter the number of a beer you'd like to learn more about. You can also type 'list' to see the list of locations again, type 'back' to start over, or type 'exit' to exit."
     puts ""
 
     beer_input = gets.strip
-
-    if beer_input.to_i > 0 && beer_input.to_i <10
+    if beer_input.to_i > 0 && beer_input.to_i < 10
       beer_number = beer_input.to_i - 1
-      WhatsOnTap::Scraper.get_beer_info_page(beer_number)
+      WhatsOnTap::Scraper.get_beer_info_page(beer_number) #accessed page for individual beer
 
-      WhatsOnTap::Scraper.get_and_set_beer_attributes(beer_number)
+      WhatsOnTap::Scraper.get_and_set_beer_attributes(beer_number) #scrape for additional beer data, add to existing beer objects
 
-      beer_object = WhatsOnTap::Beer.all[beer_number]
+      beer_object = WhatsOnTap::Beer.all[beer_number] #grab individual beer object/ chosen by user
 
       puts ""
       puts "#{beer_object.name}"
@@ -103,7 +100,6 @@ class WhatsOnTap::CLI
       puts "ABV: #{beer_object.abv}"
       puts "Description: #{beer_object.full_description}"
       puts ""
-
     elsif beer_input.downcase == "exit"
       exit
     elsif beer_input.downcase == "back"
@@ -159,6 +155,7 @@ class WhatsOnTap::CLI
   end
 
   ###########################  helper methods #################################
+
   def restart_from_location_list
     list_locations
     get_beers
@@ -183,5 +180,4 @@ class WhatsOnTap::CLI
     restart_or_exit
     goodbye
   end
-
 end
