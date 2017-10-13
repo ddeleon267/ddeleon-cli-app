@@ -4,14 +4,14 @@ class WhatsOnTap::Location
 
   @@all = []
 
-  def initialize(name=nil, establishment_type=nil, beers_on_tap=nil)
+  def initialize(name)
     @name = name
 
     @@all << self
   end
 
   def self.all
-    @@all.uniq
+    @@all
   end
 
   def self.reset

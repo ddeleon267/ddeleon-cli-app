@@ -9,7 +9,7 @@ class WhatsOnTap::Beer
   end
 
   def self.all
-    @@all.uniq
+    @@all
   end
 
   def self.reset

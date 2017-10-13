@@ -1,10 +1,6 @@
 class WhatsOnTap::CLI
 
-#concerns for 10/12
-##  enoch's suggestion -- > preventing duplicates
-##  possibly refactoring last two methods in scraper
-##  general feedback
-
+#concerns for 10/13
 ## maybe refactoring the "puts" part in first CLI get_a_beer_and_list_details condition
 ##  finding a way to make  CLI #get_locations more controlled while still allowing city string input
 
@@ -36,7 +32,10 @@ class WhatsOnTap::CLI
 
   def list_locations
     WhatsOnTap::Location.all.each.with_index(1) do |location_object, i|
-      puts "#{i}. #{location_object.name}  #{location_object.establishment_type}   --->   #{location_object.num_beers_on_tap}"
+      puts " #{i}. #{location_object.name}"
+      puts "    (#{location_object.establishment_type})" unless location_object.establishment_type == nil
+      puts "    #{location_object.num_beers_on_tap}" unless location_object.num_beers_on_tap == nil
+      puts ""
     end
   end
 
