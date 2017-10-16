@@ -1,5 +1,5 @@
 class WhatsOnTap::CLI
-  def call #this is long, but I do like that it gives a clear view of what's happening, so I chose not to refactor
+  def call
     welcome
     get_locations
     list_locations
@@ -12,7 +12,9 @@ class WhatsOnTap::CLI
 
   def welcome
     puts ""
-    puts "Welcome to What's On Tap!"
+    puts "--------------------------------------------------------------------------------"
+    puts "                            Welcome to What's On Tap!"
+    puts "--------------------------------------------------------------------------------"
     puts ""
   end
 
