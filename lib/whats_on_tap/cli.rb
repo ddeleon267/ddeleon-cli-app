@@ -156,7 +156,7 @@ class WhatsOnTap::CLI
 
   def goodbye
     puts ""
-    puts "Until next time!"
+    puts "Until next time, happy drinking!"
   end
 
   ###########################  helper methods #################################
