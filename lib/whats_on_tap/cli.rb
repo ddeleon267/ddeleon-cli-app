@@ -24,14 +24,14 @@ class WhatsOnTap::CLI
     city = gets.strip
     WhatsOnTap::Scraper.get_beer_menu_site(city) #accesses site
     puts ""
-    puts "                                  #{city.upcase}"
-    puts "                                 --------------"
+    puts " #{city.upcase}"
+    puts "#{"-" * (city.length + 2)}"
     WhatsOnTap::Scraper.make_locations #scrapes for location data and creates location objects
   end
 
   def list_locations
     WhatsOnTap::Location.all.each.with_index(1) do |location_object, i|
-      print "      #{i}. #{location_object.name}"
+      print " #{i}. #{location_object.name}"
       print " (#{location_object.establishment_type})" unless location_object.establishment_type == nil
       puts " ---> #{location_object.num_beers_on_tap}" unless location_object.num_beers_on_tap == nil
       puts ""
@@ -49,7 +49,11 @@ class WhatsOnTap::CLI
        location_number = input.to_i - 1
        WhatsOnTap::Scraper.get_beer_list_page(location_number) #access location website to scrape for beer list
        puts ""
-       WhatsOnTap::Scraper.make_beers #scrape for beer list, instantiate beer objects
+       WhatsOnTap::Scraper.make_beers
+      name = WhatsOnTap::Location.all[location_number].name
+      puts "Location: #{name}"#scrape for beer list, instantiate beer objects
+      puts "#{"-" * (name.length + 11)}"
+      puts ""
      elsif input.downcase == "exit"
        exit
      elsif input.downcase == "back"
@@ -67,12 +71,12 @@ class WhatsOnTap::CLI
 
   def list_beers
     if WhatsOnTap::Beer.all.empty?
-      puts "There is no individual beer data for this location. Please try again."
+      puts " There is no individual beer data for this location. Please try again."
       puts ""
       restart_from_location_list #
     else
       WhatsOnTap::Beer.all.each.with_index(1) do |beer_object, i|
-        puts "#{i}. #{beer_object.name}"
+        puts " #{i}. #{beer_object.name}"
       end
     end
   end
@@ -93,6 +97,7 @@ class WhatsOnTap::CLI
 
       puts ""
       puts "#{beer_object.name}"
+      puts "#{"-" * (beer_object.name.length + 2)}"
       puts "Brewery: #{beer_object.brewery}"
       puts "Brewery Location: #{beer_object.brewery_location}"
       puts "Type: #{beer_object.type}"
