@@ -1,7 +1,10 @@
 class WhatsOnTap::Scraper
 
   def self.get_beer_menu_site(city)
-    @@page = Nokogiri::HTML(open("https://www.beermenus.com/search?q=#{city}"))
+    encoded_city = URI::encode(city)
+    @@page = Nokogiri::HTML(open("https://www.beermenus.com/search?q=#{encoded_city}"))
+    binding.pry
+    #ruby to url-encode the city input
   end
 
   def self.page

@@ -1,4 +1,6 @@
 require 'bundler'
+require 'open-uri'
+
 
 require_relative "../lib/whats_on_tap/version.rb"
 require_relative "../lib/whats_on_tap/location"
