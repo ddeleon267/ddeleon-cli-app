@@ -1,6 +1,6 @@
 # WhatsOnTap
 
-This Ruby Gem provides a CLI to view restaurants and bars serving craft beer in your city, beer lists for each establishment, and further details about beers listed. All data used is taken from the BeerMenus.com website.
+This Ruby Gem provides a CLI to view restaurants and bars serving craft beer in your city, beer lists for each establishment, and further details about individual beers listed. All data used is taken from the BeerMenus.com website.
 
 ## Installation
 
@@ -20,9 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
-Type the below and follow the on screen prompts.
+Type the prompt below and follow the on screen prompts.
 $ worlds-best-restaurants
-<!-- does this actually work? -->
 
 ## Development
 
