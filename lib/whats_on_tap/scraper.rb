@@ -93,14 +93,17 @@ class WhatsOnTap::Scraper
     brewery = self.beer_page.css("div.pure-f-body a").text
     brewery_location = self.beer_page.css("p.mt-tiny.mb-0").text
 
-    if self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1] == nil || self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1] == []
+    #formatting type and abv attributes ---> prone to breaking otherwise / behaving unexpectedly
+    type_and_abv_data = self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1]
+    if type_and_abv_data == nil || type_and_abv_data == []
       type_and_abv = ""
     else
-      type_and_abv = self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1].strip.split("·")
+      type_and_abv = type_and_abv_data.strip.split("·")
     end
     type = type_and_abv[0].strip unless type_and_abv[0] == nil
     abv = type_and_abv[1].strip.gsub(" ABV", "") unless type_and_abv[1] == nil
 
+    #formatting full_description attribute ---> prone to breaking otherwise / behaving unexpectedly
     notes = self.beer_page.css("div.caption p")[0].text unless self.beer_page.css("div.caption p")[0] == nil
     description = self.beer_page.css("div.caption.beer-desc p").text
     if notes == nil
@@ -109,8 +112,8 @@ class WhatsOnTap::Scraper
       full_description = notes
     elsif notes == nil && description == nil
       full_description = ""
-    elsif notes == description && notes != nil
-      full_description = notes
+    elsif description.include?("#{notes}")
+      full_description = description
     else
       full_description = notes+description
     end
