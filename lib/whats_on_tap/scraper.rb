@@ -3,7 +3,6 @@ class WhatsOnTap::Scraper
   def self.get_beer_menu_site(city)
     encoded_city = URI::encode(city)
     @@page = Nokogiri::HTML(open("https://www.beermenus.com/search?q=#{encoded_city}"))
-    binding.pry
     #ruby to url-encode the city input
   end
 
@@ -43,6 +42,7 @@ class WhatsOnTap::Scraper
   def self.get_beer_list_page(location_number)
     modified_page_url = "https://www.beermenus.com#{self.scrape_location_urls[location_number]}"
     @@beer_list_page = Nokogiri::HTML(open(modified_page_url))
+
   end
 
   def self.beer_list_page
@@ -61,6 +61,7 @@ class WhatsOnTap::Scraper
   #helper method for #make_beers
   def self.scrape_beer_names
       self.beer_list_page.css("h3.mb-0.text-normal a").take(10).map {|p| p.text}
+
   end
 #######################################################################################
 
@@ -94,18 +95,17 @@ class WhatsOnTap::Scraper
   end
 
   def self.scrape_individual_beer_data
-    #there are a ton of conditionals and weird things here, because plenty of the beers are missing some or all
-    #of this data, which would otherwise easily cause the app the break
     brewery = self.beer_page.css("div.pure-f-body a").text
+
     brewery_location = self.beer_page.css("p.mt-tiny.mb-0").text
 
-    if self.beer_page.css("li.caption.lead-by-icon p") == nil || self.beer_page.css("li.caption.lead-by-icon p") == []
+    if self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1] == nil || self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1] == []
       type_and_abv = ""
     else
-      type_and_abv = self.beer_page.css("li.caption.lead-by-icon p").text.gsub("\n","").strip.split("·")
+      type_and_abv = self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1].strip.split("·")
     end
     type = type_and_abv[0].strip unless type_and_abv[0] == nil
-    abv = type_and_abv[1].strip unless type_and_abv[1] == nil
+    abv = type_and_abv[1].strip.gsub(" ABV", "") unless type_and_abv[1] == nil
 
     notes = self.beer_page.css("div.caption p")[0].text unless self.beer_page.css("div.caption p")[0] == nil
     description = self.beer_page.css("div.caption.beer-desc p").text
@@ -115,6 +115,8 @@ class WhatsOnTap::Scraper
       full_description = notes
     elsif notes == nil && description == nil
       full_description = ""
+    elsif notes == description && notes != nil
+      full_description = notes
     else
       full_description = notes+description
     end

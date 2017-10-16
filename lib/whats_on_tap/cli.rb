@@ -1,9 +1,4 @@
 class WhatsOnTap::CLI
-
-#concerns for 10/13
-##  finding a way to make  CLI #get_locations more controlled while still allowing city string input
-##general feedback
-
   def call #this is long, but I do like that it gives a clear view of what's happening, so I chose not to refactor
     welcome
     get_locations
@@ -84,7 +79,7 @@ class WhatsOnTap::CLI
     puts ""
 
     beer_input = gets.strip
-    if beer_input.to_i > 0 && beer_input.to_i < 10
+    if beer_input.to_i > 0 && beer_input.to_i < 11
       beer_number = beer_input.to_i - 1
       WhatsOnTap::Scraper.get_beer_info_page(beer_number) #accessed page for individual beer
 
