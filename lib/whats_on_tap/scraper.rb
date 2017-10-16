@@ -3,7 +3,6 @@ class WhatsOnTap::Scraper
   def self.get_beer_menu_site(city)
     encoded_city = URI::encode(city)
     @@page = Nokogiri::HTML(open("https://www.beermenus.com/search?q=#{encoded_city}"))
-    #ruby to url-encode the city input
   end
 
   def self.page
@@ -38,7 +37,6 @@ class WhatsOnTap::Scraper
   end
   #########################################################################################
 
-
   def self.get_beer_list_page(location_number)
     modified_page_url = "https://www.beermenus.com#{self.scrape_location_urls[location_number]}"
     @@beer_list_page = Nokogiri::HTML(open(modified_page_url))
@@ -48,7 +46,6 @@ class WhatsOnTap::Scraper
   def self.beer_list_page
     @@beer_list_page
   end
-
 
   #########################################################################################
   def self.make_beers
@@ -65,7 +62,6 @@ class WhatsOnTap::Scraper
   end
 #######################################################################################
 
-
   def self.get_beer_info_page(beer_number)
     modified_page_url = "https://www.beermenus.com#{self.scrape_beer_urls[beer_number]}"
     @@beer_page = Nokogiri::HTML(open(modified_page_url))
@@ -81,11 +77,10 @@ class WhatsOnTap::Scraper
     self.beer_list_page.css("h3.mb-0.text-normal a").take(5).map { |link| link['href']}
   end
 
-
 #######################################################################################
   def self.get_and_set_beer_attributes(beer_number)
     beer_attribute_array = self.scrape_individual_beer_data
-    beer_object = WhatsOnTap::Beer.all[beer_number]  #accesses beer object (chosen by user) adds additional attributes
+    beer_object = WhatsOnTap::Beer.all[beer_number]
 
     beer_object.brewery = beer_attribute_array[0]
     beer_object.brewery_location = beer_attribute_array[1]
@@ -96,7 +91,6 @@ class WhatsOnTap::Scraper
 
   def self.scrape_individual_beer_data
     brewery = self.beer_page.css("div.pure-f-body a").text
-
     brewery_location = self.beer_page.css("p.mt-tiny.mb-0").text
 
     if self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1] == nil || self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1] == []
@@ -129,5 +123,5 @@ class WhatsOnTap::Scraper
          attribute = attribute
        end
      end
-  end #end method
+  end #end ::scrape_individual_beer_data
 end
