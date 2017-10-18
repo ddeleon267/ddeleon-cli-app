@@ -10,10 +10,10 @@ class WhatsOnTap::Scraper
   end
 
   def self.make_locations
-    WhatsOnTap::Location.reset #prevents duplicate objects & unexpected results if user goes back and tries multiple cities
+    WhatsOnTap::Location.all.clear #prevents duplicate objects & unexpected results if user goes back and tries multiple cities
     self.scrape_location_names.each.with_index do |location_name,i|
       location_object = WhatsOnTap::Location.new(location_name)
-      location_object.establishment_type = self.scrape_establishment_types[i]
+      location_object.type = self.scrape_location_types[i]
       location_object.num_beers_on_tap = self.scrape_num_beers_on_tap[i]
     end
   end
@@ -24,7 +24,7 @@ class WhatsOnTap::Scraper
     self.page.css("h3.mb-0.text-normal a").take(5).map {|p| p.text}
   end
 
-  def self.scrape_establishment_types
+  def self.scrape_location_types
     self.page.css("h3.mb-0.text-normal span").take(6).map {|p| p.text.gsub("· ", "")}
   end
 
@@ -48,7 +48,7 @@ class WhatsOnTap::Scraper
 
   #########################################################################################
   def self.make_beers
-    WhatsOnTap::Beer.reset #prevents duplicate objects & unexpected results
+    WhatsOnTap::Beer.all.clear #prevents duplicate objects & unexpected results
     self.scrape_beer_names.each do |beer_name|
       WhatsOnTap::Beer.new(beer_name) unless beer_name == ""
     end
@@ -89,7 +89,7 @@ class WhatsOnTap::Scraper
   def self.scrape_individual_beer_data
     brewery = self.beer_page.css("div.pure-f-body a").text
     brewery_location = self.beer_page.css("p.mt-tiny.mb-0").text
-    binding.pry
+
     #formatting type and abv attributes ---> prone to breaking otherwise / behaving unexpectedly
     type_and_abv_data = self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1]
     if type_and_abv_data == nil || type_and_abv_data == []
