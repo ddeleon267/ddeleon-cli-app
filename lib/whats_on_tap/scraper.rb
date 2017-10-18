@@ -10,7 +10,6 @@ class WhatsOnTap::Scraper
   end
 
   def self.make_locations
-    self.scrape_location_urls
     WhatsOnTap::Location.reset #prevents duplicate objects & unexpected results if user goes back and tries multiple cities
     self.scrape_location_names.each.with_index do |location_name,i|
       location_object = WhatsOnTap::Location.new(location_name)
@@ -20,9 +19,6 @@ class WhatsOnTap::Scraper
   end
 
 ################### helper methods for #make_locations ###################################
-  def self.scrape_location_urls
-    self.page.css("h3.mb-0.text-normal a").take(5).map { |link| link['href']}
-  end
 
   def self.scrape_location_names
     self.page.css("h3.mb-0.text-normal a").take(5).map {|p| p.text}
@@ -40,7 +36,10 @@ class WhatsOnTap::Scraper
   def self.get_beer_list_page(location_number)
     modified_page_url = "https://www.beermenus.com#{self.scrape_location_urls[location_number]}"
     @@beer_list_page = Nokogiri::HTML(open(modified_page_url))
+  end
 
+  def self.scrape_location_urls
+    self.page.css("h3.mb-0.text-normal a").take(5).map { |link| link['href']}
   end
 
   def self.beer_list_page
@@ -58,14 +57,12 @@ class WhatsOnTap::Scraper
   #helper method for #make_beers
   def self.scrape_beer_names
       self.beer_list_page.css("h3.mb-0.text-normal a").take(10).map {|p| p.text}
-
   end
 #######################################################################################
 
   def self.get_beer_info_page(beer_number)
     modified_page_url = "https://www.beermenus.com#{self.scrape_beer_urls[beer_number]}"
     @@beer_page = Nokogiri::HTML(open(modified_page_url))
-
   end
 
   def self.beer_page
@@ -92,7 +89,7 @@ class WhatsOnTap::Scraper
   def self.scrape_individual_beer_data
     brewery = self.beer_page.css("div.pure-f-body a").text
     brewery_location = self.beer_page.css("p.mt-tiny.mb-0").text
-
+    binding.pry
     #formatting type and abv attributes ---> prone to breaking otherwise / behaving unexpectedly
     type_and_abv_data = self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1]
     if type_and_abv_data == nil || type_and_abv_data == []
