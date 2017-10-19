@@ -10,7 +10,7 @@ class WhatsOnTap::Scraper
   end
 
   def self.make_locations
-    WhatsOnTap::Location.all.clear #prevents duplicate objects & unexpected results if user goes back and tries multiple cities
+    WhatsOnTap::Location.all.clear
     self.scrape_location_names.each.with_index do |location_name,i|
       location_object = WhatsOnTap::Location.new(location_name)
       location_object.type = self.scrape_location_types[i]
@@ -48,7 +48,7 @@ class WhatsOnTap::Scraper
 
   #########################################################################################
   def self.make_beers
-    WhatsOnTap::Beer.all.clear #prevents duplicate objects & unexpected results
+    WhatsOnTap::Beer.all.clear
     self.scrape_beer_names.each do |beer_name|
       WhatsOnTap::Beer.new(beer_name) unless beer_name == ""
     end
