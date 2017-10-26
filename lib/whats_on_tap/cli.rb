@@ -68,6 +68,7 @@ class WhatsOnTap::CLI
       puts ""
       get_beers
     end
+
   end
 
   def list_beers
@@ -91,9 +92,9 @@ class WhatsOnTap::CLI
     if beer_input.to_i > 0 && beer_input.to_i <= WhatsOnTap::Beer.all.size
       beer_number = beer_input.to_i - 1
       WhatsOnTap::Scraper.get_beer_info_page(beer_number)
-      WhatsOnTap::Scraper.get_and_set_beer_attributes(beer_number)
-      beer_object = WhatsOnTap::Beer.all[beer_number]
 
+      beer_object = WhatsOnTap::Scraper.get_and_set_beer_attributes(beer_number)
+      # beer_object = WhatsOnTap::Beer.all[beer_number]
       puts ""
       puts "#{beer_object.name}"
       puts "#{"-" * (beer_object.name.length + 2)}"

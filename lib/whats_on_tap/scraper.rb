@@ -84,13 +84,14 @@ class WhatsOnTap::Scraper
     beer_object.type = beer_attribute_array[2]
     beer_object.abv = beer_attribute_array[3]
     beer_object.full_description = beer_attribute_array[4]
+    beer_object
   end
 
   def self.scrape_individual_beer_data
     brewery = self.beer_page.css("div.pure-f-body a").text
     brewery_location = self.beer_page.css("p.mt-tiny.mb-0").text
 
-    #formatting type and abv attributes ---> prone to breaking otherwise / behaving unexpectedly
+    #formatting type and abv attributes
     type_and_abv_data = self.beer_page.css("li.caption.lead-by-icon p").text.split("\n")[1]
     if type_and_abv_data == nil || type_and_abv_data == []
       type_and_abv = ""
@@ -100,7 +101,7 @@ class WhatsOnTap::Scraper
     type = type_and_abv[0].strip unless type_and_abv[0] == nil
     abv = type_and_abv[1].strip.gsub(" ABV", "") unless type_and_abv[1] == nil
 
-    #formatting full_description attribute ---> prone to breaking otherwise / behaving unexpectedly
+    #formatting full_description attribute
     notes = self.beer_page.css("div.caption p")[0].text unless self.beer_page.css("div.caption p")[0] == nil
     description = self.beer_page.css("div.caption.beer-desc p").text
     if notes == nil
@@ -116,6 +117,7 @@ class WhatsOnTap::Scraper
     end
 
     beer_data = [brewery, brewery_location, type, abv, full_description]
+
     beer_data.map do |attribute|
        if attribute == nil || attribute == ""
          attribute = "No information available"
