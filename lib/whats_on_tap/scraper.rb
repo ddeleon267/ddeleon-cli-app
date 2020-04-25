@@ -9,12 +9,24 @@ class WhatsOnTap::Scraper
     @@page
   end
 
-  def self.make_locations
-    WhatsOnTap::Location.all.clear
+  # def self.make_locations
+  #   WhatsOnTap::Location.all.clear
+  #   self.scrape_location_names.each.with_index do |location_name,i|
+  #     location_object = WhatsOnTap::Location.new(location_name)
+  #     location_object.type = self.scrape_location_types[i]
+  #     location_object.num_beers_on_tap = self.scrape_num_beers_on_tap[i]
+  #   end
+  # end
+
+  def self.make_locations(city)
     self.scrape_location_names.each.with_index do |location_name,i|
-      location_object = WhatsOnTap::Location.new(location_name)
-      location_object.type = self.scrape_location_types[i]
-      location_object.num_beers_on_tap = self.scrape_num_beers_on_tap[i]
+      location = WhatsOnTap::Location.find_by_name(location_name)
+      if !location
+        location = WhatsOnTap::Location.new(location_name)
+        location.type = self.scrape_location_types[i]
+        location.num_beers_on_tap = self.scrape_num_beers_on_tap[i]
+        location.city = city
+      end
     end
   end
 

@@ -1,3 +1,4 @@
+require "pry"
 class WhatsOnTap::CLI
   def call
     welcome
@@ -21,16 +22,17 @@ class WhatsOnTap::CLI
   def get_locations
     puts "Please enter your city to find places offering craft beers on tap in your city."
     puts ""
-    city = gets.strip
-    WhatsOnTap::Scraper.get_beer_menu_site(city)
+    @city = gets.strip
+    WhatsOnTap::Scraper.get_beer_menu_site(@city)
     puts ""
-    puts " #{city.upcase}"
-    puts "#{"-" * (city.length + 2)}"
-    WhatsOnTap::Scraper.make_locations
+    puts " #{@city.upcase}"
+    puts "#{"-" * (@city.length + 2)}"
+    WhatsOnTap::Scraper.make_locations(@city)
+
   end
 
   def list_locations
-    WhatsOnTap::Location.all.each.with_index(1) do |location_object, i|
+    WhatsOnTap::Location.select_by_city(@city).each.with_index(1) do |location_object, i|
       print " #{i}. #{location_object.name}"
       print " (#{location_object.type})" unless location_object.type == nil
       puts " ---> #{location_object.num_beers_on_tap}" unless location_object.num_beers_on_tap == nil
