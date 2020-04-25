@@ -3,8 +3,8 @@ class WhatsOnTap::Location
 
   @@all = []
 
-  def initialize(name)
-    @name = name
+  def initialize(attributes)
+    attributes.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
   end
 
