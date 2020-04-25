@@ -58,27 +58,17 @@ class WhatsOnTap::Scraper
     self.scrape_beer_names.each do |beer_name|
       beer = WhatsOnTap::Beer.find_by_name(beer_name)
       if !beer && beer_name != ""
-        WhatsOnTap::Beer.new(beer_name)
+        WhatsOnTap::Beer.new(name: beer_name)
       end
     end
   end
 
-  ## ideally want to grab all the beer data at once, then make full beer obj by that.
-  ## want to deal with this zipper pattern
-  # def self.make_beers
+  ## associate beer with location to support select methos in model
+  # def self.make_beers(location)
   #   self.scrape_beer_names.each do |beer_name|
   #     beer = WhatsOnTap::Beer.find_by_name(beer_name)
   #     if !beer && beer_name != ""
-  #
-  #       beer_details = {
-  #         name:
-  #         brewery:
-  #         brewery_location:
-  #         type:
-  #         abv:
-  #         full_description:
-  #       }
-  #       beer = WhatsOnTap::Beer.new(beer_details)
+  #       WhatsOnTap::Beer.new(name, location)
   #     end
   #   end
   # end
