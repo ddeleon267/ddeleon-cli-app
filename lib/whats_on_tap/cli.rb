@@ -34,8 +34,8 @@ class WhatsOnTap::CLI
   def list_locations
     WhatsOnTap::Location.select_by_city(@city).each.with_index(1) do |location_object, i|
       print " #{i}. #{location_object.name}"
-      print " (#{location_object.type})" unless location_object.type == nil
-      puts " ---> #{location_object.num_beers_on_tap}" unless location_object.num_beers_on_tap == nil
+      print " (#{location_object.type})" if location_object.type
+      puts " ---> #{location_object.num_beers_on_tap}" if location_object.num_beers_on_tap
       puts ""
     end
   end
@@ -47,7 +47,7 @@ class WhatsOnTap::CLI
     puts ""
 
     input = gets.strip
-    if input.to_i > 0 && input.to_i <= WhatsOnTap::Location.all.size
+    if input.to_i.between?(0,5) 
       location_number = input.to_i - 1
       WhatsOnTap::Scraper.get_beer_list_page(location_number)
       WhatsOnTap::Scraper.make_beers

@@ -9,15 +9,6 @@ class WhatsOnTap::Scraper
     @@page
   end
 
-  # def self.make_locations
-  #   WhatsOnTap::Location.all.clear
-  #   self.scrape_location_names.each.with_index do |location_name,i|
-  #     location_object = WhatsOnTap::Location.new(location_name)
-  #     location_object.type = self.scrape_location_types[i]
-  #     location_object.num_beers_on_tap = self.scrape_num_beers_on_tap[i]
-  #   end
-  # end
-
   def self.make_locations(city)
     self.scrape_location_names.each.with_index do |location_name,i|
       location = WhatsOnTap::Location.find_by_name(location_name)
@@ -28,7 +19,7 @@ class WhatsOnTap::Scraper
           num_beers_on_tap: self.scrape_num_beers_on_tap[i],
           city: city
         }
-        location = WhatsOnTap::Location.new(location_details)
+        WhatsOnTap::Location.new(location_details)
       end
     end
   end
@@ -50,6 +41,7 @@ class WhatsOnTap::Scraper
 
   def self.get_beer_list_page(location_number)
     modified_page_url = "https://www.beermenus.com#{self.scrape_location_urls[location_number]}"
+
     @@beer_list_page = Nokogiri::HTML(open(modified_page_url))
   end
 
@@ -63,19 +55,53 @@ class WhatsOnTap::Scraper
 
   #########################################################################################
   def self.make_beers
-    WhatsOnTap::Beer.all.clear
     self.scrape_beer_names.each do |beer_name|
-      WhatsOnTap::Beer.new(beer_name) unless beer_name == ""
+      beer = WhatsOnTap::Beer.find_by_name(beer_name)
+      if !beer && beer_name != ""
+        WhatsOnTap::Beer.new(beer_name)
+      end
     end
   end
 
+  ## ideally want to grab all the beer data at once, then make full beer obj by that.
+  ## want to deal with this zipper pattern
+  # def self.make_beers
+  #   self.scrape_beer_names.each do |beer_name|
+  #     beer = WhatsOnTap::Beer.find_by_name(beer_name)
+  #     if !beer && beer_name != ""
+  #
+  #       beer_details = {
+  #         name:
+  #         brewery:
+  #         brewery_location:
+  #         type:
+  #         abv:
+  #         full_description:
+  #       }
+  #       beer = WhatsOnTap::Beer.new(beer_details)
+  #     end
+  #   end
+  # end
+
+
+##### working on le scrape
+
+# def self.scrape_mah_beers
+#   selector = "ul#on_tap.pure-list div.pure-u-2-3"
+#   self.beer_list_page.css(selector).take(10).map do |div|
+#     binding.pry
+#   end
+# end
+
+
   #helper method for #make_beers
   def self.scrape_beer_names
+    binding.pry
       self.beer_list_page.css("h3.mb-0.text-normal a").take(10).map {|p| p.text}
   end
 #######################################################################################
 
-  def self.get_beer_info_page(beer_number)
+  def self.get_beer_info_page(beer_number)  ## this still works
     modified_page_url = "https://www.beermenus.com#{self.scrape_beer_urls[beer_number]}"
     @@beer_page = Nokogiri::HTML(open(modified_page_url))
   end
