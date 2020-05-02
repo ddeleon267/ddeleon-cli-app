@@ -1,10 +1,11 @@
 class WhatsOnTap::Location
-  attr_accessor :name, :num_beers_on_tap, :type, :city
+  attr_accessor :name, :num_beers_on_tap, :type, :city, :beers, :url
 
   @@all = []
 
   def initialize(attributes)
     attributes.each {|key, value| self.send(("#{key}="), value)}
+    @beers = []
     @@all << self
   end
 

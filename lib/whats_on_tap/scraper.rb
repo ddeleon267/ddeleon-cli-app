@@ -19,7 +19,8 @@ class WhatsOnTap::Scraper
           name: name,
           type: data.css("h3 span").text,
           num_beers_on_tap: data.css("p.caption.text-gray.mb-small").text,
-          city: city
+          city: city,
+          url: data.css("h3.mb-0.text-normal a").first.attributes["href"].value
         }
         WhatsOnTap::Location.new(location_details)
       end
@@ -52,10 +53,10 @@ class WhatsOnTap::Scraper
   # end
   #########################################################################################
 
-  def self.get_beer_list_page(location_number)
-    modified_page_url = "https://www.beermenus.com#{self.scrape_location_urls[location_number]}"
-
+  def self.get_beer_list_page(location)
+    modified_page_url = "https://www.beermenus.com/#{location.url}"
     @@beer_list_page = Nokogiri::HTML(open(modified_page_url))
+    binding.pry
   end
 
   def self.scrape_location_urls

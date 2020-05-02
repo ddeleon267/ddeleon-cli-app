@@ -49,7 +49,8 @@ class WhatsOnTap::CLI
     input = gets.strip
     if input.to_i.between?(0,5)
       location_number = input.to_i - 1
-      WhatsOnTap::Scraper.get_beer_list_page(location_number)
+      location = WhatsOnTap::Location.select_by_city(@city)[location_number]
+      WhatsOnTap::Scraper.get_beer_list_page(location)
       WhatsOnTap::Scraper.make_beers
 
       name = WhatsOnTap::Location.all[location_number].name
