@@ -25,42 +25,12 @@ class WhatsOnTap::Scraper
         WhatsOnTap::Location.new(location_details)
       end
     end
-    # self.scrape_location_names.each.with_index do |location_name,i|
-    #   location = WhatsOnTap::Location.find_by_name(location_name)
-    #   if !location
-    #     location_details = {
-    #       name: location_name,
-    #       type: self.scrape_location_types[i],
-    #       num_beers_on_tap: self.scrape_num_beers_on_tap[i],
-    #       city: city
-    #     }
-    #     WhatsOnTap::Location.new(location_details)
-    #   end
-    # end
   end
-
-################### helper methods for #make_locations ###################################
-  #   def self.scrape_location_names
-  #   self.page.css("h3.mb-0.text-normal a").take(5).map {|p| p.text}
-  # end
-
-  # def self.scrape_location_types
-  #   self.page.css("h3.mb-0.text-normal span").take(6).map {|p| p.text.gsub("· ", "")}
-  # end
-
-  # def self.scrape_num_beers_on_tap
-  #   self.page.css("p.caption.text-gray.mb-small").take(6).map {|p| p.text}
-  # end
-  #########################################################################################
 
   def self.get_beer_list_page(location)
     modified_page_url = "https://www.beermenus.com/#{location.url}"
     @@beer_list_page = Nokogiri::HTML(open(modified_page_url))
     binding.pry
-  end
-
-  def self.scrape_location_urls
-    self.page.css("h3.mb-0.text-normal a").take(5).map { |link| link['href']}
   end
 
   def self.beer_list_page
@@ -77,30 +47,7 @@ class WhatsOnTap::Scraper
     end
   end
 
-  ## associate beer with location to support select methos in model
-  # def self.make_beers(location)
-  #   self.scrape_beer_names.each do |beer_name|
-  #     beer = WhatsOnTap::Beer.find_by_name(beer_name)
-  #     if !beer && beer_name != ""
-  #       WhatsOnTap::Beer.new(name, location)
-  #     end
-  #   end
-  # end
-
-
-##### working on le scrape
-
-# def self.scrape_mah_beers
-#   selector = "ul#on_tap.pure-list div.pure-u-2-3"
-#   self.beer_list_page.css(selector).take(10).map do |div|
-#     binding.pry
-#   end
-# end
-
-
-  #helper method for #make_beers
   def self.scrape_beer_names
-    binding.pry
       self.beer_list_page.css("h3.mb-0.text-normal a").take(10).map {|p| p.text}
   end
 #######################################################################################
