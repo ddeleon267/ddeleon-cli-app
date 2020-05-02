@@ -23,7 +23,7 @@ class WhatsOnTap::CLI
     puts "Please enter your city to find places offering craft beers on tap in your city."
     puts ""
     @city = gets.strip
-    WhatsOnTap::Scraper.get_beer_menu_site(@city)
+    WhatsOnTap::Scraper.get_beer_menu_site(@city)  ## get nokogiri for page
     puts ""
     puts " #{@city.upcase}"
     puts "#{"-" * (@city.length + 2)}"
@@ -47,7 +47,7 @@ class WhatsOnTap::CLI
     puts ""
 
     input = gets.strip
-    if input.to_i.between?(0,5) 
+    if input.to_i.between?(0,5)
       location_number = input.to_i - 1
       WhatsOnTap::Scraper.get_beer_list_page(location_number)
       WhatsOnTap::Scraper.make_beers

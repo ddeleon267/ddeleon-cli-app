@@ -1,3 +1,4 @@
+require "pry"
 class WhatsOnTap::Scraper
 
   def self.get_beer_menu_site(city)
@@ -10,33 +11,45 @@ class WhatsOnTap::Scraper
   end
 
   def self.make_locations(city)
-    self.scrape_location_names.each.with_index do |location_name,i|
-      location = WhatsOnTap::Location.find_by_name(location_name)
+    self.page.css("div.pure-u-1").each do |data|
+      name = data.css("h3 a").text
+      location = WhatsOnTap::Location.find_by_name(name)
       if !location
         location_details = {
-          name: location_name,
-          type: self.scrape_location_types[i],
-          num_beers_on_tap: self.scrape_num_beers_on_tap[i],
+          name: name,
+          type: data.css("h3 span").text,
+          num_beers_on_tap: data.css("p.caption.text-gray.mb-small").text,
           city: city
         }
         WhatsOnTap::Location.new(location_details)
       end
     end
+    # self.scrape_location_names.each.with_index do |location_name,i|
+    #   location = WhatsOnTap::Location.find_by_name(location_name)
+    #   if !location
+    #     location_details = {
+    #       name: location_name,
+    #       type: self.scrape_location_types[i],
+    #       num_beers_on_tap: self.scrape_num_beers_on_tap[i],
+    #       city: city
+    #     }
+    #     WhatsOnTap::Location.new(location_details)
+    #   end
+    # end
   end
 
 ################### helper methods for #make_locations ###################################
+  #   def self.scrape_location_names
+  #   self.page.css("h3.mb-0.text-normal a").take(5).map {|p| p.text}
+  # end
 
-  def self.scrape_location_names
-    self.page.css("h3.mb-0.text-normal a").take(5).map {|p| p.text}
-  end
+  # def self.scrape_location_types
+  #   self.page.css("h3.mb-0.text-normal span").take(6).map {|p| p.text.gsub("· ", "")}
+  # end
 
-  def self.scrape_location_types
-    self.page.css("h3.mb-0.text-normal span").take(6).map {|p| p.text.gsub("· ", "")}
-  end
-
-  def self.scrape_num_beers_on_tap
-    self.page.css("p.caption.text-gray.mb-small").take(6).map {|p| p.text}
-  end
+  # def self.scrape_num_beers_on_tap
+  #   self.page.css("p.caption.text-gray.mb-small").take(6).map {|p| p.text}
+  # end
   #########################################################################################
 
   def self.get_beer_list_page(location_number)
