@@ -29,8 +29,6 @@ class WhatsOnTap::Scraper
     Nokogiri::HTML(open(modified_page_url))
   end
 
-
-
 ## just envisioning how I might approach this broken code (see notes below) more appropriately,
 ## if my ability to scrape were not hindered. hence the psuedocode
 
@@ -38,20 +36,27 @@ class WhatsOnTap::Scraper
 #   page = self.get_beer_list_page(location)
 #   page.css("some selector here").each do |beer_anchor_tag|
 #     name = ## get name from anchor tag
-#     url = ## get url from anchor tag
-#     beer = WhatsOnTap::Beer.find_by_name(name)
-#     if !beer && beer_name != ""
-#       location.beers << WhatsOnTap::Beer.new(name: name, url:url)
+#     if !WhatsOnTap::Beer.find_by_name(name) && name != ""
+#       url = ## get url from anchor tag
+#       beer_details = {name: name, url: url, location: location}
+#       location.beers << WhatsOnTap::Beer.new(beer_details)
 #     end
 #   end
 # end
+
+## need to get beer info page
+## scrape individual beer data
+## find been in location.beers? or in Beer.all
+## update beer attributes
+
 
 
   #########################################################################################
   #######################################################################################
 
   ## The code below here is obsolute :( and generally very ugly. zipper pattern and quite clunky
-  ## the location pages don't allow for scraping of the beers anymore, so that aspect of the functionality breaks
+  ## the location pages don't allow for scraping of the beers anymore, so that aspect of the functionality is broken as well :'(
+
   # def self.make_beers
   #   self.scrape_beer_names.each do |beer_name|
   #     beer = WhatsOnTap::Beer.find_by_name(beer_name)

@@ -1,10 +1,10 @@
 class WhatsOnTap::Beer
   attr_accessor :name, :brewery, :brewery_location, :type, :abv, :full_description, :location, :url
+
   @@all = []
 
-  def initialize(name:) # maybe add location here
-    @name = name
-    #@location = location
+  def initialize(attributes)
+    attributes.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
   end
 
