@@ -1,5 +1,5 @@
 class WhatsOnTap::Beer
-  attr_accessor :name, :brewery, :brewery_location, :type, :abv, :full_description, :location
+  attr_accessor :name, :brewery, :brewery_location, :type, :abv, :full_description, :location, :url
   @@all = []
 
   def initialize(name:) # maybe add location here
